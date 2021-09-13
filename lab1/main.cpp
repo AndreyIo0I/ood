@@ -1,5 +1,6 @@
 #include <cassert>
 #include <iostream>
+#include <memory>
 #include <vector>
 #include <functional>
 
@@ -57,6 +58,10 @@ public:
 	void Quack() const
 	{
 		m_quackBehavior();
+	}
+	void Swim()
+	{
+		cout << "I'm swimming" << endl;
 	}
 	void Fly()
 	{

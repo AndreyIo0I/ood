@@ -25,6 +25,15 @@ public:
 private:
 	int m_count = 0;
 };
+
+function<void()> MakeFlyWithWings()
+{
+	int flightCount = 0;
+	return [flightCount] () mutable {
+		cout << "I'm flying with wings " << ++flightCount;
+	};
+}
+
 //---------------------------------------------------------------------
 void QuackBehavior() {
 	cout << "Quack Quack!!!" << endl;

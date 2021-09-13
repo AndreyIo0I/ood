@@ -14,23 +14,11 @@ void DanceMinuet() {
 	cout << "I'm Dancing minuet" << endl;
 }
 //---------------------------------------------------------------------
-class FlyWithWings
-{
-public:
-	void operator()()
-	{
-		cout << "I'm flying with wings " << ++m_count << endl;
-	}
-
-private:
-	int m_count = 0;
-};
-
-function<void()> MakeFlyWithWings()
+function<void()> FlyWithWings()
 {
 	int flightCount = 0;
 	return [flightCount] () mutable {
-		cout << "I'm flying with wings " << ++flightCount;
+		cout << "I'm flying with wings " << ++flightCount << endl;
 	};
 }
 

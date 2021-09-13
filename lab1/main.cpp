@@ -6,11 +6,13 @@
 using namespace std;
 
 //---------------------------------------------------------------------
-void DanceWaltz() {
+void DanceWaltz()
+{
 	cout << "I'm Dancing waltz" << endl;
 }
 
-void DanceMinuet() {
+void DanceMinuet()
+{
 	cout << "I'm Dancing minuet" << endl;
 }
 //---------------------------------------------------------------------
@@ -21,12 +23,14 @@ function<void()> FlyWithWings()
 		cout << "I'm flying with wings " << ++flightCount << endl;
 	};
 }
-
 //---------------------------------------------------------------------
-void QuackBehavior() {
+void QuackBehavior()
+{
 	cout << "Quack Quack!!!" << endl;
 }
-void SqueakBehavior() {
+
+void SqueakBehavior()
+{
 	cout << "Squeek!!!" << endl;
 }
 //---------------------------------------------------------------------

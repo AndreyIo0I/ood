@@ -32,7 +32,8 @@ private:
 class CStatsDisplay : public IObserver<SWeatherInfo>
 {
 private:
-	struct StatsData {
+	struct StatsData
+	{
 		std::string name;
 		double min = std::numeric_limits<double>::infinity();
 		double max = -std::numeric_limits<double>::infinity();

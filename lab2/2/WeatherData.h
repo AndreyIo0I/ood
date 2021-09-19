@@ -56,7 +56,6 @@ private:
 		std::cout << "Max " << data.name << " " << data.max << std::endl;
 		std::cout << "Min " << data.name << " " << data.min << std::endl;
 		std::cout << "Average " << data.name << " " << (data.acc / data.countAcc) << std::endl;
-		std::cout << "---" << std::endl;
 	}
 
 	/* Метод Update сделан приватным, чтобы ограничить возможность его вызова напрямую.
@@ -66,7 +65,9 @@ private:
 	void Update(SWeatherInfo const& data) override
 	{
 		updateData(m_temperature, data.temperature);
+		std::cout << "---" << std::endl;
 		updateData(m_humidity, data.humidity);
+		std::cout << "---" << std::endl;
 		updateData(m_pressure, data.pressure);
 		std::cout << "----------------" << std::endl;
 	}

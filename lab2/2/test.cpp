@@ -46,6 +46,5 @@ SCENARIO("Observer removes themself from update fn")
 	observable.RegisterObserver(observer1);
 	observable.RegisterObserver(observer2);
 
-	observable.SetMeasurements(true);
-	observable.SetMeasurements(false);
+	CHECK_NOTHROW(observable.SetMeasurements(true));
 }

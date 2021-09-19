@@ -7,3 +7,6 @@ include_directories(.)
 
 add_executable(lab2_2
         main.cpp)
+
+add_executable(test_2_2
+        test.cpp)

@@ -61,7 +61,8 @@ public:
 		{
 			m_observersToErase.insert(&observer);
 		}
-		else {
+		else
+		{
 			m_observers.erase(&observer);
 		}
 	}

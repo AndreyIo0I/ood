@@ -40,7 +40,12 @@ public:
 	typedef IObserver<T> ObserverType;
 
 	CObservable()
-	:m_observers(cmp)
+	:m_observers([this](ObserverType* l, ObserverType* r)
+		{
+			return m_observersPriority[l] != m_observersPriority[r]
+				? m_observersPriority[l] < m_observersPriority[r]
+				: l < r;
+		})
 	{
 	}
 
@@ -89,8 +94,7 @@ private:
 	}
 
 	std::map<ObserverType*, int> m_observersPriority;
-	std::function<bool(ObserverType*, ObserverType*)> cmp = [this](ObserverType* l, ObserverType* r){ return m_observersPriority[l] < m_observersPriority[r]; };
-	std::set<ObserverType*, decltype(cmp)> m_observers;
+	std::set<ObserverType*, std::function<bool(ObserverType*, ObserverType*)>> m_observers;
 
 	std::set<ObserverType*> m_observersToErase;
 	bool m_notifyingObservers = false;

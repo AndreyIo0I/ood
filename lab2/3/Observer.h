@@ -46,9 +46,8 @@ public:
 
 	void RegisterObserver(ObserverType & observer, int priority = 0) override
 	{
-		m_observers.insert(&observer);
-		std::cout << m_observers.size() << "#\n";
 		m_observersPriority[&observer] = priority;
+		m_observers.insert(&observer);
 	}
 
 	void NotifyObservers() override

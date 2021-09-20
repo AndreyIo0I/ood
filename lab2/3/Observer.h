@@ -2,6 +2,7 @@
 
 #include <set>
 #include <functional>
+#include <map>
 
 /*
 Шаблонный интерфейс IObserver. Его должен реализовывать класс, 
@@ -26,7 +27,7 @@ class IObservable
 {
 public:
 	virtual ~IObservable() = default;
-	virtual void RegisterObserver(IObserver<T> & observer) = 0;
+	virtual void RegisterObserver(IObserver<T> & observer, int priority = 0) = 0;
 	virtual void NotifyObservers() = 0;
 	virtual void RemoveObserver(IObserver<T> & observer) = 0;
 };
@@ -38,9 +39,16 @@ class CObservable : public IObservable<T>
 public:
 	typedef IObserver<T> ObserverType;
 
-	void RegisterObserver(ObserverType & observer) override
+	CObservable()
+	:m_observers(cmp)
+	{
+	}
+
+	void RegisterObserver(ObserverType & observer, int priority = 0) override
 	{
 		m_observers.insert(&observer);
+		std::cout << m_observers.size() << "#\n";
+		m_observersPriority[&observer] = priority;
 	}
 
 	void NotifyObservers() override
@@ -81,6 +89,10 @@ private:
 		m_observersToErase.clear();
 	}
 
-	std::set<ObserverType *> m_observers, m_observersToErase;
+	std::map<ObserverType*, int> m_observersPriority;
+	std::function<bool(ObserverType*, ObserverType*)> cmp = [this](ObserverType* l, ObserverType* r){ return m_observersPriority[l] < m_observersPriority[r]; };
+	std::set<ObserverType*, decltype(cmp)> m_observers;
+
+	std::set<ObserverType*> m_observersToErase;
 	bool m_notifyingObservers = false;
 };

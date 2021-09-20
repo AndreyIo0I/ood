@@ -41,7 +41,7 @@ private:
 		unsigned countAcc = 0;
 	};
 
-	static void updateData(StatsData & data, double newData)
+	static void UpdateData(StatsData & data, double newData)
 	{
 		if (data.min > newData)
 		{
@@ -66,9 +66,9 @@ private:
 	*/
 	void Update(SWeatherInfo const& data) override
 	{
-		updateData(m_temperature, data.temperature);
-		updateData(m_humidity, data.humidity);
-		updateData(m_pressure, data.pressure);
+		UpdateData(m_temperature, data.temperature);
+		UpdateData(m_humidity, data.humidity);
+		UpdateData(m_pressure, data.pressure);
 		std::cout << "----------------" << std::endl;
 	}
 

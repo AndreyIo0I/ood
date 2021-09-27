@@ -58,13 +58,29 @@ TEST_CASE("Observer removes themself from update fn")
 
 TEST_CASE("Use observers with priority")
 {
-	CTestObservable observable;
-	CObserver observer1(observable, 1);
-	CObserver observer2(observable, 2);
+	SECTION("normal order")
+	{
+		CTestObservable observable;
+		CObserver observer1(observable, 1);
+		CObserver observer2(observable, 2);
 
-	observable.RegisterObserver(observer1, 2);
-	observable.RegisterObserver(observer2, 3);
+		observable.RegisterObserver(observer1, 2);
+		observable.RegisterObserver(observer2, 3);
 
-	observable.SetMeasurements(true);
-	CHECK((order[0] == 2 && order[1] == 1));
+		observable.SetMeasurements(true);
+		CHECK((order[0] == 2 && order[1] == 1));
+	}
+
+	SECTION("reversed order")
+	{
+		CTestObservable observable;
+		CObserver observer1(observable, 1);
+		CObserver observer2(observable, 2);
+
+		observable.RegisterObserver(observer1, 2);
+		observable.RegisterObserver(observer2, 3);
+
+		observable.SetMeasurements(true);
+		CHECK((order[0] == 2 && order[1] == 1));
+	}
 }

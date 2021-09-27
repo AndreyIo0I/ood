@@ -87,7 +87,7 @@ TEST_CASE("Use observers with priority")
 	CHECK((order[0] == 2 && order[1] == 1));
 }
 
-TEST_CASE("Use observers with different observables")
+TEST_CASE("Use observers with different observables") //todo глянуть наблюдение за несколькими в лекции
 {
 	CTestObservable observable1, observable2;
 	CObserver observer(observable1, observable2, 1);

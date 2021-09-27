@@ -62,8 +62,8 @@ TEST_CASE("Use observers with priority")
 	CObserver observer1(observable, 1);
 	CObserver observer2(observable, 2);
 
-	observable.RegisterObserver(observer1);
-	observable.RegisterObserver(observer2);
+	observable.RegisterObserver(observer1, 2);
+	observable.RegisterObserver(observer2, 3);
 
 	observable.SetMeasurements(true);
 	CHECK((order[0] == 2 && order[1] == 1));

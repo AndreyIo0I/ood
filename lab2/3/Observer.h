@@ -43,8 +43,8 @@ public:
 	:m_observers([this](ObserverType* l, ObserverType* r)
 		{
 			return m_observersPriority[l] != m_observersPriority[r]
-				? m_observersPriority[l] < m_observersPriority[r]
-				: l < r;
+				? m_observersPriority[l] > m_observersPriority[r]
+				: l > r;
 		})
 	{
 	}

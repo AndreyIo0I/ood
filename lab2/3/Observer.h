@@ -42,15 +42,17 @@ public:
 	CObservable()
 	:m_observers([this](ObserverType* l, ObserverType* r)
 		{
+			// todo at или find вместо []
 			return m_observersPriority[l] != m_observersPriority[r]
 				? m_observersPriority[l] > m_observersPriority[r]
-				: l > r;
+				: l > r;// todo std::greater
 		})
 	{
 	}
 
 	void RegisterObserver(ObserverType & observer, int priority = 0) override
 	{
+		// todo безопасный к возникновению исключений
 		m_observersPriority[&observer] = priority;
 		m_observers.insert(&observer);
 	}
@@ -71,7 +73,7 @@ public:
 	{
 		if (m_notifyingObservers)
 		{
-			m_observersToErase.insert(&observer);
+			m_observersToErase.insert(&observer); //todo проверить добавление и удаление во время обновления
 		}
 		else {
 			m_observers.erase(&observer);

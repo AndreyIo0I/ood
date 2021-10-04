@@ -45,7 +45,7 @@ public:
 			// todo at или find вместо []
 			return m_observersPriority[l] != m_observersPriority[r]
 				? m_observersPriority[l] > m_observersPriority[r]
-				: l > r;// todo std::greater
+				: l > r;// todo std::greater std::greater<ObserverType*>(l, r)
 		})
 	{
 	}

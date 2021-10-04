@@ -75,7 +75,8 @@ public:
 		{
 			m_observersToErase.insert(&observer); //todo проверить добавление и удаление во время обновления
 		}
-		else {
+		else
+		{
 			m_observers.erase(&observer);
 		}
 	}

@@ -46,6 +46,7 @@ public:
 		return m_isDouble ? 120 : 80;
 	}
 
+private:
 	bool m_isDouble;
 };
 
@@ -63,6 +64,7 @@ public:
 		return m_isDouble ? 130 : 90;
 	}
 
+private:
 	bool m_isDouble;
 };
 
@@ -134,5 +136,6 @@ public:
 		}
 	}
 
+private:
 	MilkshakeSize m_size;
 };

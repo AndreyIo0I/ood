@@ -262,4 +262,15 @@ int main()
 		// Выписываем счет покупателю
 		cout << beverage->GetDescription() << " costs " << beverage->GetCost() << endl;
 	}
+
+	{
+		auto beverage =
+			make_unique<CTea>(TeaType::Red)						// Наливаем красный чай
+				<< MakeCondiment<CLiquor>(LiquorType::Chocolate)	// заливаем шоколадным ликёром
+				<< MakeCondiment<CChocolatePieces>(3)				// посыпаем 3 шоколадными кусочками
+				<< MakeCondiment<CCream>();							// добавляем сливки =)
+
+		// Выписываем счет покупателю
+		cout << beverage->GetDescription() << " costs " << beverage->GetCost() << endl;
+	}
 }

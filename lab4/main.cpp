@@ -1,6 +1,5 @@
 
 #include <CRectangle.h>
-#include <memory>
 #include <CShapeFactory.h>
 #include <CDesigner.h>
 #include <CPainter.h>
@@ -12,26 +11,18 @@ using namespace std;
 
 int main()
 {
-	try
-	{
-		CShapeFactory factory;
-		CDesigner designer(factory);
+	CShapeFactory factory;
+	CDesigner designer(factory);
 
-		CPictureDraft picDraft = designer.CreateDraft(cin);
+	CPictureDraft draft = designer.CreateDraft(cin);
 
-		CSvgCanvas canvas;
+	CSvgCanvas canvas;
 
-		CPainter painter;
-		painter.DrawPicture(picDraft, canvas);
+	CPainter painter;
+	painter.DrawPicture(draft, canvas);
 
-		ofstream outFile("my.svg", ios::out);
+	ofstream outFile("my.svg", ios::out);
 
-		canvas.Print(outFile);
-	}
-	catch (const exception& e)
-	{
-		cout << e.what() << endl;
-	}
-
+	canvas.Print(outFile);
 	return 0;
 }

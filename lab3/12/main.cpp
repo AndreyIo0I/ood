@@ -273,4 +273,14 @@ int main()
 		// Выписываем счет покупателю
 		cout << beverage->GetDescription() << " costs " << beverage->GetCost() << endl;
 	}
+
+	{
+		auto beverage =
+			make_unique<CMilkshake>(MilkshakeSize::Big)
+				<< MakeCondiment<CChocolatePieces>(6)
+				<< MakeCondiment<CLiquor>(LiquorType::Chocolate);
+
+		// Выписываем счет покупателю
+		cout << beverage->GetDescription() << " costs " << beverage->GetCost() << endl;
+	}
 }

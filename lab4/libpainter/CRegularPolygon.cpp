@@ -33,8 +33,6 @@ float CRegularPolygon::GetRadius() const
 
 void CRegularPolygon::Draw(ICanvas& canvas) const
 {
-	canvas.SetColor(Color::Red);
-	canvas.DrawEllipse(m_x, m_y, 5, 5);
 	canvas.SetColor(GetColor());
 	float x1 = m_x;
 	float y1 = m_y + m_r;

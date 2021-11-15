@@ -2,25 +2,25 @@
 #include "CRectangle.h"
 
 CRectangle::CRectangle(float x, float y, float w, float h, Color color)
-	: CShape(color), m_x(x), m_y(y), m_w(w), m_h(h)
+	: CShape(color), m_leftX(x), m_topY(y), m_width(w), m_height(h)
 {
 }
 
 Point CRectangle::GetLeftTop() const
 {
-	return {m_x, m_y};
+	return {m_leftX, m_topY};
 }
 
 Point CRectangle::GetRightBottom() const
 {
-	return {m_x + m_w, m_y + m_h};
+	return {m_leftX + m_width, m_topY + m_height};
 }
 
 void CRectangle::Draw(ICanvas& canvas) const
 {
 	canvas.SetColor(GetColor());
-	canvas.DrawLine(m_x, m_y, m_x + m_w, m_y);
-	canvas.DrawLine(m_x, m_y, m_x, m_y + m_h);
-	canvas.DrawLine(m_x + m_w, m_y + m_h, m_x + m_w, m_y);
-	canvas.DrawLine(m_x + m_w, m_y + m_h, m_x, m_y + m_h);
+	canvas.DrawLine(m_leftX, m_topY, m_leftX + m_width, m_topY);
+	canvas.DrawLine(m_leftX, m_topY, m_leftX, m_topY + m_height);
+	canvas.DrawLine(m_leftX + m_width, m_topY + m_height, m_leftX + m_width, m_topY);
+	canvas.DrawLine(m_leftX + m_width, m_topY + m_height, m_leftX, m_topY + m_height);
 }

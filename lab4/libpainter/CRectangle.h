@@ -13,5 +13,5 @@ public:
 	void Draw(ICanvas& canvas) const override;
 
 private:
-	float m_x, m_y, m_w, m_h;
+	float m_leftX, m_topY, m_width, m_height;
 };

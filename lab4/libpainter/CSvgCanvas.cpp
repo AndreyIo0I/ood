@@ -26,7 +26,7 @@ void CSvgCanvas::DrawLine(float x1, float y1, float x2, float y2)
 void CSvgCanvas::DrawEllipse(float cx, float cy, float rx, float ry)
 {
 	m_outputStr += '\t';
-	m_outputStr += format(R"(<ellipse cx="{}" cy="{}" rx="{}" ry="{}" fill="{}" />)", cx, cy, rx, ry, ColorToStr(m_color));
+	m_outputStr += format(R"(<ellipse cx="{}" cy="{}" rx="{}" ry="{}" stroke="{}" />)", cx, cy, rx, ry, ColorToStr(m_color));
 	m_outputStr += '\n';
 }
 

@@ -55,7 +55,7 @@ class CLatte : public CCoffee
 {
 public:
 	CLatte(const bool isDouble = false)
-		: CCoffee("Latte")
+		: CCoffee(isDouble ? "Double Latte" : "Latte")
 		, m_isDouble(isDouble)
 	{}
 
@@ -91,8 +91,8 @@ std::string GetTeaTypeString(TeaType type)
 class CTea : public CBeverage
 {
 public:
-	CTea(const TeaType name = TeaType::Black)
-		:CBeverage(GetTeaTypeString(name) + " Tea")
+	CTea(const TeaType type = TeaType::Black)
+		:CBeverage(GetTeaTypeString(type) + " Tea")
 	{}
 
 	double GetCost() const override

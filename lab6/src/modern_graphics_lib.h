@@ -37,7 +37,7 @@ namespace modern_graphics_lib
 			{
 				throw std::logic_error("Drawing has already begun");
 			}
-			m_out << "<draw>" << std::endl;
+			m_out << "<draw>\n";
 			m_drawing = true;
 		}
 
@@ -58,7 +58,7 @@ namespace modern_graphics_lib
 			{
 				throw std::logic_error("Drawing has not been started");
 			}
-			m_out << "</draw>" << std::endl;
+			m_out << "</draw>\n";
 			m_drawing = false;
 		}
 	private:

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <iostream>
+
 // Пространство имен графической библиотеки (недоступно для изменения)
 namespace graphics_lib
 {
@@ -20,11 +22,11 @@ namespace graphics_lib
 	public:
 		void MoveTo(int x, int y) override
 		{
-			std::cout << "MoveTo (" << x << ", " << y << ")" << std::endl;
+			std::cout << "MoveTo (" << x << ", " << y << ")\n";
 		}
 		void LineTo(int x, int y) override
 		{
-			std::cout << "LineTo (" << x << ", " << y << ")" << std::endl;
+			std::cout << "LineTo (" << x << ", " << y << ")\n";
 		}
 	};
 }

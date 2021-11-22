@@ -1,4 +1,4 @@
-project(oop)
+project(ood)
 
 set(HEADER_FILES
         CPainter.h

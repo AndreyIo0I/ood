@@ -202,10 +202,10 @@ namespace app
 		PaintPicture(painter);
 	}
 
-	class ModernRendererAdapter: public graphics_lib::ICanvas
+	class CModernRendererAdapter: public graphics_lib::ICanvas
 	{
 	public:
-		ModernRendererAdapter(modern_graphics_lib::CModernGraphicsRenderer & modernRenderer)
+		CModernRendererAdapter(modern_graphics_lib::CModernGraphicsRenderer & modernRenderer)
 		: m_modernRenderer(modernRenderer)
 		, m_startPoint({0, 0})
 		{
@@ -223,7 +223,7 @@ namespace app
 			MoveTo(x, y);
 		}
 
-		~ModernRendererAdapter() override
+		~CModernRendererAdapter() override
 		{
 			m_modernRenderer.EndDraw();
 		}
@@ -239,7 +239,7 @@ namespace app
 		(void)&renderer; // устраняем предупреждение о неиспользуемой переменной
 
 		// TODO: при помощи существующей функции PaintPicture() нарисовать
-		ModernRendererAdapter adaptedRenderer(renderer);
+		CModernRendererAdapter adaptedRenderer(renderer);
 		shape_drawing_lib::CCanvasPainter painter(adaptedRenderer);
 		PaintPicture(painter);
 	}

@@ -57,32 +57,44 @@ namespace shape_drawing_lib
 	{
 	public:
 		CTriangle(const Point & p1, const Point & p2, const Point & p3)
+		: m_p1(p1)
+		, m_p2(p2)
+		, m_p3(p3)
 		{
-			// TODO: написать код конструктора
 		}
 
 		void Draw(graphics_lib::ICanvas & canvas)const override
 		{
-			// TODO: написать код рисования треугольника на холсте
+			canvas.MoveTo(m_p1.x, m_p1.y);
+			canvas.LineTo(m_p2.x, m_p2.y);
+			canvas.LineTo(m_p3.x, m_p3.y);
+			canvas.LineTo(m_p1.x, m_p1.y);
 		}
 	private:
-		// TODO: дописать приватную часть
+		Point m_p1, m_p2, m_p3;
 	};
 
 	class CRectangle : public ICanvasDrawable
 	{
 	public:
 		CRectangle(const Point & leftTop, int width, int height)
+		: m_leftTop(leftTop)
+		, m_width(width)
+		, m_height(height)
 		{
-			// TODO: написать код конструктора
 		}
 
 		void Draw(graphics_lib::ICanvas & canvas)const override
 		{
-			// TODO: написать код рисования прямоугольника на холсте
+			canvas.MoveTo(m_leftTop.x, m_leftTop.y);
+			canvas.LineTo(m_leftTop.x + m_width, m_leftTop.y);
+			canvas.LineTo(m_leftTop.x + m_width, m_leftTop.y + m_height);
+			canvas.LineTo(m_leftTop.x, m_leftTop.y + m_height);
+			canvas.LineTo(m_leftTop.x, m_leftTop.y);
 		}
 	private:
-		// TODO: дописать приватную часть
+		Point m_leftTop;
+		int m_width, m_height;
 	};
 
 // Художник, способный рисовать ICanvasDrawable-объекты на ICanvas
@@ -90,15 +102,16 @@ namespace shape_drawing_lib
 	{
 	public:
 		CCanvasPainter(graphics_lib::ICanvas & canvas)
+		: m_canvas(canvas)
 		{
-			// TODO: дописать конструктор класса
 		}
+
 		void Draw(const ICanvasDrawable & drawable)
 		{
-			// TODO: дописать код рисования ICanvasDrawable на canvas, переданном в конструктор
+			drawable.Draw(m_canvas);
 		}
 	private:
-		// TODO: дописать приватную часть
+		graphics_lib::ICanvas& m_canvas;
 	};
 }
 
@@ -178,6 +191,8 @@ namespace app
 		CRectangle rectangle({ 30, 40 }, 18, 24);
 
 		// TODO: нарисовать прямоугольник и треугольник при помощи painter
+		painter.Draw(rectangle);
+		painter.Draw(triangle);
 	}
 
 	void PaintPictureOnCanvas()
@@ -187,14 +202,46 @@ namespace app
 		PaintPicture(painter);
 	}
 
+	class ModernRendererAdapter: public graphics_lib::ICanvas
+	{
+	public:
+		ModernRendererAdapter(modern_graphics_lib::CModernGraphicsRenderer & modernRenderer)
+		: m_modernRenderer(modernRenderer)
+		, m_startPoint({0, 0})
+		{
+			m_modernRenderer.BeginDraw();
+		}
+
+		void MoveTo(int x, int y) override
+		{
+			m_startPoint = {x, y};
+		}
+
+		void LineTo(int x, int y) override
+		{
+			m_modernRenderer.DrawLine(m_startPoint, {x, y});
+			MoveTo(x, y);
+		}
+
+		~ModernRendererAdapter() override
+		{
+			m_modernRenderer.EndDraw();
+		}
+
+	private:
+		modern_graphics_lib::CModernGraphicsRenderer & m_modernRenderer;
+		modern_graphics_lib::CPoint m_startPoint;
+	};
+
 	void PaintPictureOnModernGraphicsRenderer()
 	{
 		modern_graphics_lib::CModernGraphicsRenderer renderer(cout);
 		(void)&renderer; // устраняем предупреждение о неиспользуемой переменной
 
 		// TODO: при помощи существующей функции PaintPicture() нарисовать
-		// картину на renderer
-		// Подсказка: используйте паттерн "Адаптер"
+		ModernRendererAdapter adaptedRenderer(renderer);
+		shape_drawing_lib::CCanvasPainter painter(adaptedRenderer);
+		PaintPicture(painter);
 	}
 }
 

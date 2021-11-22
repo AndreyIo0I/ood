@@ -8,7 +8,16 @@ TEST_CASE("Test CModernRendererAdapter")
 	std::ostringstream output;
 	modern_graphics_lib::CModernGraphicsRenderer renderer(output);
 
-	SECTION("interacting with CModernGraphicsRenderer as ICanvas via adapter")
+	SECTION("create and delete adapter")
+	{
+		{
+			app::CModernRendererAdapter adaptedRenderer(renderer);
+		}
+		REQUIRE(output.str() == "<draw>\n"
+								"</draw>\n");
+	}
+
+	SECTION("interacting with CModernGraphicsRenderer as with ICanvas via adapter")
 	{
 		{
 			app::CModernRendererAdapter adaptedRenderer(renderer);
@@ -22,5 +31,4 @@ TEST_CASE("Test CModernRendererAdapter")
 								"  <line fromX=\"-7\" fromY=\"3000\" toX=\"0\" toY=\"0\"/>\n"
 							    "</draw>\n");
 	}
-
 }

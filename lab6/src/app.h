@@ -34,6 +34,9 @@ namespace app
 			: m_modernRenderer(modernRenderer)
 			, m_startPoint({0, 0})
 		{
+			/*
+			 * todo вынести ответственность в клиентский код, тк здесь не выйдет контролировать начало и конец отрисовки
+			 */
 			m_modernRenderer.BeginDraw();
 		}
 
@@ -50,7 +53,7 @@ namespace app
 
 		~CModernRendererAdapter() override
 		{
-			m_modernRenderer.EndDraw();
+			m_modernRenderer.EndDraw(); // todo вынести ответственность
 		}
 
 	private:

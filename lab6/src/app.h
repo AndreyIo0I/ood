@@ -15,7 +15,6 @@ namespace app
 		CTriangle triangle({ 10, 15 }, { 100, 200 }, { 150, 250 });
 		CRectangle rectangle({ 30, 40 }, 18, 24);
 
-		// TODO: нарисовать прямоугольник и треугольник при помощи painter
 		painter.Draw(rectangle);
 		painter.Draw(triangle);
 	}
@@ -34,10 +33,6 @@ namespace app
 			: m_modernRenderer(modernRenderer)
 			, m_startPoint({0, 0})
 		{
-			/*
-			 * todo вынести ответственность в клиентский код, тк здесь не выйдет контролировать начало и конец отрисовки
-			 */
-			m_modernRenderer.BeginDraw();
 		}
 
 		void MoveTo(int x, int y) override
@@ -51,11 +46,6 @@ namespace app
 			MoveTo(x, y);
 		}
 
-		~CModernRendererAdapter() override
-		{
-			m_modernRenderer.EndDraw(); // todo вынести ответственность
-		}
-
 	private:
 		modern_graphics_lib::CModernGraphicsRenderer & m_modernRenderer;
 		modern_graphics_lib::CPoint m_startPoint;
@@ -64,11 +54,11 @@ namespace app
 	void PaintPictureOnModernGraphicsRenderer()
 	{
 		modern_graphics_lib::CModernGraphicsRenderer renderer(std::cout);
-		(void)&renderer; // устраняем предупреждение о неиспользуемой переменной
+		renderer.BeginDraw();
 
-		// TODO: при помощи существующей функции PaintPicture() нарисовать
 		CModernRendererAdapter adaptedRenderer(renderer);
 		shape_drawing_lib::CCanvasPainter painter(adaptedRenderer);
 		PaintPicture(painter);
+		renderer.EndDraw();
 	}
 }

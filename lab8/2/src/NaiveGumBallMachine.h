@@ -54,7 +54,7 @@ namespace naive
 			switch (m_state)
 			{
 				case State::HasQuarter:
-					cout << "Quarters returned\n";
+					cout << "Quarters returned " << m_quartersCount << '\n';
 					m_quartersCount = 0;
 					m_state = State::NoQuarter;
 					break;
@@ -64,7 +64,7 @@ namespace naive
 				case State::Sold:
 					cout << "Sorry you already turned the crank\n";
 					break;
-				case State::SoldOut:
+				case State::SoldOut: //todo отдать монетки, дописать тест
 					cout << "You can't eject, you haven't inserted a quarter yet\n";
 					break;
 			}

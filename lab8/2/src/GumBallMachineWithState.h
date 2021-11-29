@@ -82,7 +82,7 @@ namespace with_state
 		{
 			std::cout << "You can't insert a quarter, the machine is sold out\n";
 		}
-		void EjectQuarter() override
+		void EjectQuarter() override //todo отдать монетки, дописать тест
 		{
 			std::cout << "You can't eject, you haven't inserted a quarter yet\n";
 		}
@@ -241,7 +241,7 @@ Machine is {}
 		{
 			m_state = &m_soldState;
 		}
-		void SetHasQuarterState(unsigned count) override
+		void SetHasQuarterState(unsigned count) override // todo переназвать в добавление монетки
 		{
 			m_quarterCount = count;
 			m_state = &m_hasQuarterState;

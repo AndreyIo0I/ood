@@ -54,10 +54,10 @@ namespace app
 	void PaintPictureOnModernGraphicsRenderer()
 	{
 		modern_graphics_lib::CModernGraphicsRenderer renderer(std::cout);
-		renderer.BeginDraw();
 
 		CModernRendererAdapter adaptedRenderer(renderer);
 		shape_drawing_lib::CCanvasPainter painter(adaptedRenderer);
+		renderer.BeginDraw();
 		PaintPicture(painter);
 		renderer.EndDraw();
 	}

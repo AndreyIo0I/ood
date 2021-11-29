@@ -19,11 +19,12 @@ namespace with_state
 	{
 		virtual void ReleaseBall() = 0;
 		virtual unsigned GetBallCount()const = 0;
+		virtual unsigned GetQuarterCount()const = 0;
 
 		virtual void SetSoldOutState() = 0;
 		virtual void SetNoQuarterState() = 0;
 		virtual void SetSoldState() = 0;
-		virtual void SetHasQuarterState() = 0;
+		virtual void SetHasQuarterState(unsigned count) = 0;
 
 		virtual ~IGumballMachine() = default;
 	};
@@ -56,7 +57,10 @@ namespace with_state
 			}
 			else
 			{
-				m_gumballMachine.SetNoQuarterState();
+				if (m_gumballMachine.GetQuarterCount() == 0)
+					m_gumballMachine.SetNoQuarterState();
+				else
+					m_gumballMachine.SetHasQuarterState(m_gumballMachine.GetQuarterCount());
 			}
 		}
 		std::string ToString() const override
@@ -107,7 +111,10 @@ namespace with_state
 
 		void InsertQuarter() override
 		{
-			std::cout << "You can't insert another quarter\n";
+			if (m_gumballMachine.GetQuarterCount() < 5)
+				m_gumballMachine.SetHasQuarterState(m_gumballMachine.GetQuarterCount() + 1);
+			else
+				std::cout << "You can't insert another quarter\n";
 		}
 		void EjectQuarter() override
 		{
@@ -141,7 +148,7 @@ namespace with_state
 		void InsertQuarter() override
 		{
 			std::cout << "You inserted a quarter\n";
-			m_gumballMachine.SetHasQuarterState();
+			m_gumballMachine.SetHasQuarterState(1);
 		}
 		void EjectQuarter() override
 		{
@@ -173,6 +180,7 @@ namespace with_state
 			, m_hasQuarterState(*this)
 			, m_state(&m_soldOutState)
 			, m_count(numBalls)
+			, m_quarterCount(0)
 		{
 			if (m_count > 0)
 			{
@@ -198,20 +206,26 @@ namespace with_state
 Mighty Gumball, Inc.
 C++-enabled Standing Gumball Model #2016 (with state)
 Inventory: {} gumball{}
+Quarters: {}
 Machine is {}
-)", m_count, (m_count != 1 ? "s" : ""), m_state->ToString());
+)", m_count, (m_count != 1 ? "s" : ""), m_quarterCount, m_state->ToString());
 		}
 	private:
 		unsigned GetBallCount() const override
 		{
 			return m_count;
 		}
+		unsigned GetQuarterCount() const override
+		{
+			return m_quarterCount;
+		}
 		virtual void ReleaseBall() override
 		{
-			if (m_count != 0)
+			if (m_count != 0 && m_quarterCount > 0)
 			{
 				std::cout << "A gumball comes rolling out the slot...\n";
 				--m_count;
+				--m_quarterCount;
 			}
 		}
 		void SetSoldOutState() override
@@ -220,18 +234,21 @@ Machine is {}
 		}
 		void SetNoQuarterState() override
 		{
+			m_quarterCount = 0;
 			m_state = &m_noQuarterState;
 		}
 		void SetSoldState() override
 		{
 			m_state = &m_soldState;
 		}
-		void SetHasQuarterState() override
+		void SetHasQuarterState(unsigned count) override
 		{
+			m_quarterCount = count;
 			m_state = &m_hasQuarterState;
 		}
 	private:
 		unsigned m_count = 0;
+		unsigned m_quarterCount = 0;
 		CSoldState m_soldState;
 		CSoldOutState m_soldOutState;
 		CNoQuarterState m_noQuarterState;

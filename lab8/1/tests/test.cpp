@@ -38,8 +38,9 @@ TEST_CASE("GumballMachine tests")
 
 	SECTION("-gumball after crank turning with quarter inside")
 	{
+		m.InsertQuarter();
 		m.TurnCrank();
-		CHECK(m.ToString() == header + "Inventory: 3 gumballs\n"
+		CHECK(m.ToString() == header + "Inventory: 2 gumballs\n"
 									   "Machine is waiting for quarter\n");
 	}
 

@@ -94,8 +94,16 @@ namespace naive
 
 		void Refill(unsigned numBalls)
 		{
-			m_count = numBalls;
-			m_state = numBalls > 0 ? State::NoQuarter : State::SoldOut;
+			if (numBalls > 0)
+			{
+				m_count = numBalls;
+				m_state = m_quartersCount > 0 ? State::HasQuarter : State::NoQuarter;
+			}
+			else
+			{
+				m_count = 0;
+				m_state = State::SoldOut;
+			}
 		}
 
 		std::string ToString()const

@@ -12,6 +12,8 @@ TEST_CASE("Test CModernRendererAdapter")
 	{
 		{
 			app::CModernRendererAdapter adaptedRenderer(renderer);
+			renderer.BeginDraw();
+			renderer.EndDraw();
 		}
 		REQUIRE(output.str() == "<draw>\n"
 								"</draw>\n");
@@ -21,10 +23,12 @@ TEST_CASE("Test CModernRendererAdapter")
 	{
 		{
 			app::CModernRendererAdapter adaptedRenderer(renderer);
+			renderer.BeginDraw();
 			adaptedRenderer.MoveTo(0, 1);
 			adaptedRenderer.LineTo(3, 4);
 			adaptedRenderer.MoveTo(-7, 3000);
 			adaptedRenderer.LineTo(0, 0);
+			renderer.EndDraw();
 		}
 		REQUIRE(output.str() == "<draw>\n"
 							    "  <line fromX=\"0\" fromY=\"1\" toX=\"3\" toY=\"4\"/>\n"

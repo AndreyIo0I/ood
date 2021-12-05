@@ -24,7 +24,7 @@ namespace with_state
 		virtual void SetSoldOutState() = 0;
 		virtual void SetNoQuarterState() = 0;
 		virtual void SetSoldState() = 0;
-		virtual void SetHasQuarterState(unsigned count) = 0;
+		virtual void SetQuarters(unsigned count) = 0;
 
 		virtual ~IGumballMachine() = default;
 	};
@@ -60,7 +60,7 @@ namespace with_state
 				if (m_gumballMachine.GetQuarterCount() == 0)
 					m_gumballMachine.SetNoQuarterState();
 				else
-					m_gumballMachine.SetHasQuarterState(m_gumballMachine.GetQuarterCount());
+					m_gumballMachine.SetQuarters(m_gumballMachine.GetQuarterCount());
 			}
 		}
 		std::string ToString() const override
@@ -112,7 +112,7 @@ namespace with_state
 		void InsertQuarter() override
 		{
 			if (m_gumballMachine.GetQuarterCount() < 5)
-				m_gumballMachine.SetHasQuarterState(m_gumballMachine.GetQuarterCount() + 1);
+				m_gumballMachine.SetQuarters(m_gumballMachine.GetQuarterCount() + 1);
 			else
 				std::cout << "You can't insert another quarter\n";
 		}
@@ -148,7 +148,7 @@ namespace with_state
 		void InsertQuarter() override
 		{
 			std::cout << "You inserted a quarter\n";
-			m_gumballMachine.SetHasQuarterState(1);
+			m_gumballMachine.SetQuarters(1);
 		}
 		void EjectQuarter() override
 		{
@@ -241,7 +241,7 @@ Machine is {}
 		{
 			m_state = &m_soldState;
 		}
-		void SetHasQuarterState(unsigned count) override // todo переназвать в добавление монетки
+		void SetQuarters(unsigned count) override
 		{
 			m_quarterCount = count;
 			m_state = &m_hasQuarterState;

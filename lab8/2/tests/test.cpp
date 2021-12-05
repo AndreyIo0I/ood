@@ -119,6 +119,23 @@ void TestGumballMachine(std::string& header)
 										"Quarters: 0\n"
 										"Machine is sold out\n");
 	}
+
+	SECTION("ejecting quarters when sold out")
+	{
+		m.InsertQuarter();
+		m.InsertQuarter();
+		m.InsertQuarter();
+		m.InsertQuarter();
+		m.InsertQuarter();
+		m.TurnCrank();
+		m.TurnCrank();
+		m.TurnCrank();
+
+		m.EjectQuarter();
+		CHECK(m.ToString() == header + "Inventory: 0 gumballs\n"
+									   "Quarters: 0\n"
+									   "Machine is sold out\n");
+	}
 }
 
 TEST_CASE("GumballMachine with state tests")

@@ -53,19 +53,18 @@ namespace naive
 			using namespace std;
 			switch (m_state)
 			{
+				case State::SoldOut:
 				case State::HasQuarter:
 					cout << "Quarters returned " << m_quartersCount << '\n';
 					m_quartersCount = 0;
-					m_state = State::NoQuarter;
+					if (m_state != State::SoldOut)
+						m_state = State::NoQuarter;
 					break;
 				case State::NoQuarter:
 					cout << "You haven't inserted a quarter\n";
 					break;
 				case State::Sold:
 					cout << "Sorry you already turned the crank\n";
-					break;
-				case State::SoldOut: //todo отдать монетки, дописать тест
-					cout << "You can't eject, you haven't inserted a quarter yet\n";
 					break;
 			}
 		}

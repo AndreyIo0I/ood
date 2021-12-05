@@ -84,7 +84,16 @@ namespace with_state
 		}
 		void EjectQuarter() override //todo отдать монетки, дописать тест
 		{
-			std::cout << "You can't eject, you haven't inserted a quarter yet\n";
+			if (m_gumballMachine.GetQuarterCount() == 0)
+			{
+				std::cout << "You haven't inserted a quarter\n";
+			}
+			else
+			{
+				std::cout << m_gumballMachine.GetQuarterCount() << " quarters returned\n";
+				m_gumballMachine.SetNoQuarterState();
+				m_gumballMachine.SetSoldOutState();
+			}
 		}
 		void TurnCrank() override
 		{
@@ -118,7 +127,7 @@ namespace with_state
 		}
 		void EjectQuarter() override
 		{
-			std::cout << "Quarter returned\n";
+			std::cout << m_gumballMachine.GetQuarterCount() << " quarters returned\n";
 			m_gumballMachine.SetNoQuarterState();
 		}
 		void TurnCrank() override

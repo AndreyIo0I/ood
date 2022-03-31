@@ -1,4 +1,4 @@
-﻿#include "History.h"
+﻿#include "CHistory.h"
 #include <cassert>
 #include "ICommand.h"
 
@@ -38,17 +38,22 @@ void CHistory::AddAndExecuteCommand(ICommandPtr&& command)
 		++m_nextCommandIndex;                    //
 		m_commands.resize(m_nextCommandIndex);    // исключение выброшено не будет, т.к. размер <= текущему
 		m_commands.back() = move(command);
-	} else // будет происходить расширение истории команд
+	}
+	else // будет происходить расширение истории команд
 	{
 		assert(m_nextCommandIndex == m_commands.size());
-		// резервируем место по добавляемую команду
+		// резервируем место под добавляемую команду
 		m_commands.emplace_back(nullptr); // может выбросить исключение, но мы еще ничего не трогали
 
 		try {
 			command->Execute(); // может выбросить исключение
 			// заменяем команду-заглушку
 			m_commands.back() = move(command); // не бросает исключений
-			++m_nextCommandIndex; // теперь можно обновить индекс следующей команды
+
+			if (m_nextCommandIndex == MAX_SIZE)
+				m_commands.erase(m_commands.begin());
+			else
+				++m_nextCommandIndex; // теперь можно обновить индекс следующей команды
 		}
 		catch (...) {
 			// удаляем заглушку, т.к. команда не исполнилась
@@ -57,22 +62,5 @@ void CHistory::AddAndExecuteCommand(ICommandPtr&& command)
 			// т.к. команду выполнить не смогли
 			throw;
 		}
-
-		// Альтернативная реализация через boost.scope_exit (не совсем здесь подходит)
-		//// флажок для утверждения изменений
-		//bool commit = false;
-		//// Блок кода, который выполнится при любом выходе из данного scope (исключение, return, обычный выход)
-		//BOOST_SCOPE_EXIT_ALL(this, commit)
-		//{
-		//	if (!commit)	// удаляем из очереди команд команду-заглушку, т.к. команда зафейлилась
-		//	{
-		//		m_commands.pop_back();
-		//	}
-		//};
-		//command->Execute();	// может выбросить исключение
-		//commit = true;		// все ок, можно утверждаем изменения
-		//m_commands.back() = move(command); // заменяем команду заглушку на исполненную (не бросает исключений)
-		//++m_nextCommandIndex;
-
 	}
 }

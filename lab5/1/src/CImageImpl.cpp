@@ -1,4 +1,4 @@
-#include "ImageImpl.h"
+#include "CImageImpl.h"
 
 
 CImageImpl::CImageImpl()

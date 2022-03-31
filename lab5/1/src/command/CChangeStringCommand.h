@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "AbstractCommand.h"
+#include "CAbstractCommand.h"
 
 class CChangeStringCommand : public CAbstractCommand
 {

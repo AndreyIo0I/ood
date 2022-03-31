@@ -1,31 +1,38 @@
 project(ood)
 
 set(HEADER_FILES
-        AbstractCommand.cpp
-        AbstractCommand.h
-        ChangeStringCommand.cpp
-        ChangeStringCommand.h
-        ConstDocumentItem.cpp
-        ConstDocumentItem.h
-        Document.cpp
-        Document.h
-        DocumentItem.cpp
-        DocumentItem.h
-        Editor.h
-        History.h
-        History.cpp
+        "command/CAbstractCommand.h"
+        "command/CAddItemCommand.h"
+        "command/CChangeStringCommand.h"
+        "command/CReplaceTextCommand.hpp"
+        "command/CResizeImageCommand.hpp"
+        CConstDocumentItem.h
+        CDocument.h
+        CDocumentItem.h
+        CEditor.h
+        CHistory.h
         ICommand.h
         IDocument.h
         IImage.h
-        Image.cpp
-        Image.h
-        ImageImpl.cpp
-        ImageImpl.h
+        CImage.h
+        CImageImpl.h
         IParagraph.h
-        Menu.cpp
-        Menu.h
-        Paragraph.cpp
-        Paragraph.h
-        )
+        CMenu.h
+        CParagraph.h
+)
 
-add_library(src_lib INTERFACE ${HEADER_FILES})
+set(SOURCE_FILES
+        "command/CAbstractCommand.cpp"
+        "command/CChangeStringCommand.cpp"
+        CConstDocumentItem.cpp
+        CDocument.cpp
+        CDocumentItem.cpp
+        CHistory.cpp
+        CImage.cpp
+        CImageImpl.cpp
+        CMenu.cpp
+        CParagraph.cpp
+        "command/CAddItemCommand.cpp"
+)
+
+add_library(src_lib STATIC ${SOURCE_FILES} ${HEADER_FILES} "CHtmlSaver.h" "CHtmlSaver.cpp")

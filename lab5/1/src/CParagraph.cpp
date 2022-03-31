@@ -1,4 +1,4 @@
-#include "Paragraph.h"
+#include "CParagraph.h"
 
 std::string CParagraph::GetText() const
 {

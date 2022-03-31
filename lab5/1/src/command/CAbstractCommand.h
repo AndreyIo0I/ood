@@ -16,6 +16,5 @@ protected:
 
 private:
 	bool m_executed = false;
-
 };
 

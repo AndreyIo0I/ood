@@ -2,7 +2,7 @@
 #include <iostream>
 #include <algorithm>
 #include <sstream>
-#include "Menu.h"
+#include "CMenu.h"
 
 using namespace std;
 

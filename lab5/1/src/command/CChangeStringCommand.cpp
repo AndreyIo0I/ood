@@ -1,5 +1,5 @@
 #include <string>
-#include "ChangeStringCommand.h"
+#include "CChangeStringCommand.h"
 
 CChangeStringCommand::CChangeStringCommand(std::string& target, std::string const& newValue)
 	: m_target(target), m_newValue(newValue)

@@ -7,6 +7,8 @@ class CHistory
 {
 public:
 
+	const static size_t MAX_SIZE = 10;
+
 	bool CanUndo() const;
 
 	void Undo();

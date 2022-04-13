@@ -42,9 +42,6 @@ void CTriangle::SetFrame(const RectD& rect)
 
 void CTriangle::Draw(ICanvas& canvas)
 {
-	canvas.SetFillColor(GetFillStyle().GetColor());
-	canvas.SetLineColor(GetOutlineStyle().GetColor());
-	canvas.SetLineWidth(GetOutlineStyle().GetLineWidth().value());
-
+	CShape::Draw(canvas);
 	canvas.FillPolygon({m_point1, m_point2, m_point3});
 }

@@ -31,3 +31,10 @@ std::shared_ptr<const IGroupShape> CShape::GetGroup() const
 {
 	return nullptr;
 }
+
+void CShape::Draw(ICanvas& canvas)
+{
+	canvas.SetFillColor(GetFillStyle().GetColor());
+	canvas.SetLineColor(GetOutlineStyle().GetColor());
+	canvas.SetLineWidth(GetOutlineStyle().GetLineWidth());
+}

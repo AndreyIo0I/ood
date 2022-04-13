@@ -27,9 +27,7 @@ void CRectangle::SetFrame(const RectD& rect)
 
 void CRectangle::Draw(ICanvas& canvas)
 {
-	canvas.SetFillColor(GetFillStyle().GetColor());
-	canvas.SetLineColor(GetOutlineStyle().GetColor());
-	canvas.SetLineWidth(GetOutlineStyle().GetLineWidth().value());
+	CShape::Draw(canvas);
 
 	canvas.DrawLine(m_leftTop, {m_rightBottom.x, m_leftTop.y});
 	canvas.DrawLine(m_leftTop, {m_leftTop.x, m_rightBottom.y});
@@ -37,9 +35,9 @@ void CRectangle::Draw(ICanvas& canvas)
 	canvas.DrawLine(m_rightBottom, {m_rightBottom.x, m_leftTop.y});
 
 	canvas.FillPolygon({
-						   m_leftTop,
-						   {m_rightBottom.x, m_leftTop.y},
-						   m_rightBottom,
-						   {m_leftTop.x, m_rightBottom.y}
-					   });
+		m_leftTop,
+		{m_rightBottom.x, m_leftTop.y},
+		m_rightBottom,
+		{m_leftTop.x, m_rightBottom.y}
+	});
 }

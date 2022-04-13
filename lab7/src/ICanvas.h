@@ -14,7 +14,7 @@ public:
 
 	virtual void SetLineColor(std::optional<RGBAColor> color) = 0;
 	virtual void SetFillColor(std::optional<RGBAColor> color) = 0;
-	virtual void SetLineWidth(double width) = 0;
+	virtual void SetLineWidth(std::optional<double> width) = 0;
 
 	virtual ~ICanvas() = default;
 };

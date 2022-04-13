@@ -22,6 +22,8 @@ public:
 	std::shared_ptr<IGroupShape> GetGroup() override;
 	std::shared_ptr<const IGroupShape> GetGroup() const override;
 
+	void Draw(ICanvas& canvas) override;
+
 private:
 	std::shared_ptr<ILineStyle> m_lineStyle = std::make_shared<CLineStyle>();
 	std::shared_ptr<IFillStyle> m_fillStyle = std::make_shared<CFillStyle>();

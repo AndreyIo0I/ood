@@ -78,9 +78,12 @@ void CSvgCanvas::SetFillColor(optional<RGBAColor> color)
 	m_fillColor = color;
 }
 
-void CSvgCanvas::SetLineWidth(double width)
+void CSvgCanvas::SetLineWidth(std::optional<double> width)
 {
-	m_lineWidth = width;
+	if (width.has_value())
+		m_lineWidth = width.value();
+	else
+		m_lineWidth = 1;
 }
 
 std::string CSvgCanvas::ColorToString(optional<RGBAColor> color)

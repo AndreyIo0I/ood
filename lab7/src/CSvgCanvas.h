@@ -18,7 +18,7 @@ public:
 
 	void SetLineColor(std::optional<RGBAColor> color) override;
 	void SetFillColor(std::optional<RGBAColor> color) override;
-	void SetLineWidth(double width) override;
+	void SetLineWidth(std::optional<double> width) override;
 
 	~CSvgCanvas() override;
 

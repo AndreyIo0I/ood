@@ -8,10 +8,10 @@
 class CHtmlSaver
 {
 public:
-	void Save(const std::unique_ptr<IDocument>& document, const std::string& path);
+	static void Save(const std::unique_ptr<IDocument>& document, const std::string& path);
 
 private:
-	std::string ParagraphToHtml(const std::shared_ptr<IParagraph>& paragraph);
-	std::string ImageToHtml(const std::shared_ptr<IImage>& image);
-	std::string HtmlEncode(const std::string& str);
+	static std::string ParagraphToHtml(const std::shared_ptr<IParagraph>& paragraph);
+	static std::string ImageToHtml(const std::shared_ptr<IImage>& image);
+	static std::string HtmlEncode(const std::string& str);
 };

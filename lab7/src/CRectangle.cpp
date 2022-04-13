@@ -29,7 +29,7 @@ void CRectangle::Draw(ICanvas& canvas)
 {
 	canvas.SetFillColor(GetFillStyle().GetColor());
 	canvas.SetLineColor(GetOutlineStyle().GetColor());
-	canvas.SetLineWidth(GetOutlineStyle().GetLineWidth());
+	canvas.SetLineWidth(GetOutlineStyle().GetLineWidth().value());
 
 	canvas.DrawLine(m_leftTop, {m_rightBottom.x, m_leftTop.y});
 	canvas.DrawLine(m_leftTop, {m_leftTop.x, m_rightBottom.y});

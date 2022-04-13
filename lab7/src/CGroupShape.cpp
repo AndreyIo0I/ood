@@ -83,6 +83,8 @@ size_t CGroupShape::GetShapesCount() const
 
 shared_ptr<IShape> CGroupShape::GetShapeAtIndex(size_t index)
 {
+	if (index >= GetShapesCount())
+		throw std::out_of_range("out of range");
 	return m_shapes.at(index);
 }
 
@@ -96,6 +98,8 @@ void CGroupShape::InsertShape(const shared_ptr<IShape>& shape, size_t position)
 
 void CGroupShape::RemoveShapeAtIndex(size_t index)
 {
+	if (index >= GetShapesCount())
+		throw std::out_of_range("out of range");
 	m_shapes.erase(m_shapes.begin() + index);
 }
 
@@ -103,4 +107,16 @@ void CGroupShape::Draw(ICanvas& canvas)
 {
 	for (auto& shape: m_shapes)
 		shape->Draw(canvas);
+}
+
+void CGroupShape::EnumerateAll(const std::function<void(IFillStyle&)>& callback) const
+{
+	for (auto& shape : m_shapes)
+		callback(shape->GetFillStyle());
+}
+
+void CGroupShape::EnumerateAll(const std::function<void(ILineStyle&)>& callback) const
+{
+	for (auto& shape : m_shapes)
+		callback(shape->GetOutlineStyle());
 }

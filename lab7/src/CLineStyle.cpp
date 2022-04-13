@@ -12,7 +12,7 @@ void CLineStyle::SetLineWidth(double width)
 	m_width = width;
 }
 
-double CLineStyle::GetLineWidth() const
+std::optional<double> CLineStyle::GetLineWidth() const
 {
 	return m_width;
 }

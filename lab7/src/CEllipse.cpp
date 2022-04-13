@@ -31,7 +31,7 @@ void CEllipse::Draw(ICanvas& canvas)
 {
 	canvas.SetFillColor(GetFillStyle().GetColor());
 	canvas.SetLineColor(GetOutlineStyle().GetColor());
-	canvas.SetLineWidth(GetOutlineStyle().GetLineWidth());
+	canvas.SetLineWidth(GetOutlineStyle().GetLineWidth().value());
 
 	canvas.FillEllipse(m_center.x - m_rx, m_center.y - m_ry, m_rx * 2, m_ry * 2);
 	canvas.DrawEllipse(m_center.x - m_rx, m_center.y - m_ry, m_rx * 2, m_ry * 2);

@@ -1,6 +1,9 @@
 project(ood)
 
 set(HEADER_FILES
+        IStyleEnumerator.h
+        CCompositeLineStyle.h
+        CCompositeFillStyle.h
         CommonTypes.h
         ICanvas.h
         ISlide.h
@@ -24,6 +27,8 @@ set(HEADER_FILES
 set(SOURCE_FILES
         CSlide.cpp
         CShape.cpp
+        CCompositeLineStyle.cpp
+        CCompositeFillStyle.cpp
         CLineStyle.cpp
         CFillStyle.cpp
         CSvgCanvas.cpp

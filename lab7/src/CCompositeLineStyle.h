@@ -1,17 +1,18 @@
 #pragma once
 #include "ILineStyle.h"
+#include "IStyleEnumerator.h"
 
-class CLineStyle : public ILineStyle
+class CCompositeLineStyle : public ILineStyle
 {
 public:
-	CLineStyle(double width = 1, std::optional<RGBAColor> color = std::nullopt);
+	CCompositeLineStyle(IStyleEnumerator<ILineStyle>& enumerator);
 
 	std::optional<double> GetLineWidth() const override;
 	void SetLineWidth(double width) override;
 
 	std::optional<RGBAColor> GetColor() const override;
 	void SetColor(std::optional<RGBAColor> color) override;
+
 private:
-	double m_width;
-	std::optional<RGBAColor> m_color;
+	IStyleEnumerator<ILineStyle>& m_enumerator;
 };

@@ -15,7 +15,6 @@ set(HEADER_FILES
         IDocument.h
         IImage.h
         CImage.h
-        CImageImpl.h
         IParagraph.h
         CMenu.h
         CParagraph.h
@@ -29,7 +28,6 @@ set(SOURCE_FILES
         CDocumentItem.cpp
         CHistory.cpp
         CImage.cpp
-        CImageImpl.cpp
         CMenu.cpp
         CParagraph.cpp
         "command/CAddItemCommand.cpp"

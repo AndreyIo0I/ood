@@ -7,7 +7,7 @@ class CImage : public IImage
 {
 public:
 
-	CImage(std::filesystem::path path, int width, int height);
+	CImage(const std::filesystem::path& path, int width, int height);
 
 	// Возвращает путь относительно каталога документа
 	std::filesystem::path GetPath() const override;

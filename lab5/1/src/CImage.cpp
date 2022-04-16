@@ -1,9 +1,8 @@
 #include "CImage.h"
 #include <stdexcept>
 #include <filesystem>
-#include <iostream>
 
-CImage::CImage(std::filesystem::path path, int width, int height)
+CImage::CImage(const std::filesystem::path& path, int width, int height)
     : m_width(width)
     , m_height(height)
 {

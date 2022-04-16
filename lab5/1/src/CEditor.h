@@ -194,7 +194,7 @@ namespace
 
 			try
 			{
-				CHtmlSaver::Save(m_document, path);
+				CHtmlSaver::Save(*m_document, path);
 			}
 			catch (const std::exception& exc)
 			{

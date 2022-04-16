@@ -11,7 +11,7 @@
 using namespace std;
 namespace fs = filesystem;
 
-void CHtmlSaver::Save(const std::unique_ptr<IDocument>& document, const string& path)
+void CHtmlSaver::Save(const IDocument& document, const string& path)
 {
 	if (!fs::exists(path) || !fs::is_directory(path))
 		throw logic_error("Save path (" + path + ") must exist and be a directory!");
@@ -34,23 +34,23 @@ void CHtmlSaver::Save(const std::unique_ptr<IDocument>& document, const string& 
 	out << "<!DOCTYPE html>\n"
 		<< "<html>\n"
 		<< "<head>\n"
-		<< "	<title>" << HtmlEncode(document->GetTitle()) << "</title>\n"
+		<< "	<title>" << HtmlEncode(document.GetTitle()) << "</title>\n"
 		<< "</head>\n"
 		<< "<body>\n";
 
-	for (auto i = 0; i < document->GetItemsCount(); ++i)
+	for (auto i = 0; i < document.GetItemsCount(); ++i)
 	{
-		auto item = document->GetItem(i);
+		auto item = document.GetItem(i);
 		auto paragraph = item.GetParagraph();
 		auto image = item.GetImage();
 		if (paragraph != nullptr)
 		{
-			out << "	" << ParagraphToHtml(paragraph) << '\n';
+			out << "	" << ParagraphToHtml(*paragraph) << '\n';
 		}
 		else if (image != nullptr)
 		{
 			fs::copy_file(image->GetPath(), imagesFolder / image->GetPath().filename());
-			out << "	" << ImageToHtml(image) << '\n';
+			out << "	" << ImageToHtml(*image) << '\n';
 		}
 	}
 
@@ -58,16 +58,16 @@ void CHtmlSaver::Save(const std::unique_ptr<IDocument>& document, const string& 
 		<< "</html>\n";
 }
 
-string CHtmlSaver::ParagraphToHtml(const shared_ptr<IParagraph>& paragraph)
+string CHtmlSaver::ParagraphToHtml(const IParagraph& paragraph)
 {
-	return "<p>" + HtmlEncode(paragraph->GetText()) + "</p>";
+	return "<p>" + HtmlEncode(paragraph.GetText()) + "</p>";
 }
 
-string CHtmlSaver::ImageToHtml(const shared_ptr<IImage>& image)
+string CHtmlSaver::ImageToHtml(const IImage& image)
 {
-	return "<img src='" + HtmlEncode(image->GetPath().string())
-		+ "' width='" + HtmlEncode(to_string(image->GetWidth()))
-		+ "' height='" + HtmlEncode(to_string(image->GetHeight()))
+	return "<img src='" + HtmlEncode(image.GetPath().string())
+		+ "' width='" + HtmlEncode(to_string(image.GetWidth()))
+		+ "' height='" + HtmlEncode(to_string(image.GetHeight()))
 		+ "'/>";
 }
 

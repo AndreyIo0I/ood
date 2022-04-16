@@ -1,5 +1,6 @@
 #pragma once
 #include <memory>
+#include <optional>
 #include "IDrawable.h"
 #include "ILineStyle.h"
 #include "IFillStyle.h"
@@ -9,7 +10,7 @@ class IGroupShape;
 class IShape : public IDrawable
 {
 public:
-	virtual RectD GetFrame() = 0;
+	virtual std::optional<RectD> GetFrame() = 0;
 	virtual void SetFrame(const RectD& rect) = 0;
 
 	virtual ILineStyle& GetOutlineStyle() = 0;

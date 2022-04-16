@@ -7,9 +7,9 @@ CEllipse::CEllipse(double cx, double cy, double rx, double ry)
 {
 }
 
-RectD CEllipse::GetFrame()
+std::optional<RectD> CEllipse::GetFrame()
 {
-	return {
+	return RectD {
 		m_center.x - m_rx,
 		m_center.y - m_ry,
 		m_center.x + m_rx,

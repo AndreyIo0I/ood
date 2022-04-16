@@ -13,13 +13,13 @@ optional<double> CCompositeLineStyle::GetLineWidth() const
 	optional<double> result;
 	bool isFirstStyle = true;
 
-	function<void(ILineStyle&)> callback = [&](ILineStyle& style) {
+	auto callback = [&](ILineStyle& style) {
 		if (isFirstStyle)
 		{
 			result = style.GetLineWidth().value();
 			isFirstStyle = false;
 		}
-		else if (style.GetColor() != result)
+		else if (style.GetLineWidth() != result)
 			result = nullopt;
 	};
 
@@ -41,7 +41,7 @@ optional<RGBAColor> CCompositeLineStyle::GetColor() const
 	optional<RGBAColor> result;
 	bool isFirstStyle = true;
 
-	function<void(ILineStyle&)> callback = [&](ILineStyle& style) {
+	auto callback = [&](ILineStyle& style) {
 		if (isFirstStyle)
 		{
 			result = style.GetColor();

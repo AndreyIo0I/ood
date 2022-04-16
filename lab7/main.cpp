@@ -40,7 +40,7 @@ int main()
 	house->InsertShape(walls);
 	house->InsertShape(window);
 	house->InsertShape(roof);
-	house->SetFrame({60, 120, 400, 320});
+	house->SetFrame({60, 120, 400, 120});
 	slide.InsertShape(house);
 
 	ofstream output("picture.svg");

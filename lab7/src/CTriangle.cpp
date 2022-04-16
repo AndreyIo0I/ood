@@ -11,13 +11,13 @@ CTriangle::CTriangle(double x1, double y1, double x2, double y2, double x3, doub
 {
 }
 
-RectD CTriangle::GetFrame()
+optional<RectD> CTriangle::GetFrame()
 {
 	auto left = min({m_point1.x, m_point2.x, m_point3.x});
 	auto top = min({m_point1.y, m_point2.y, m_point3.y});
 	auto right = max({m_point1.x, m_point2.x, m_point3.x});
 	auto bottom = max({m_point1.y, m_point2.y, m_point3.y});
-	return {
+	return RectD {
 		left,
 		top,
 		right - left,
@@ -27,7 +27,7 @@ RectD CTriangle::GetFrame()
 
 void CTriangle::SetFrame(const RectD& rect)
 {
-	auto currentFrame = GetFrame();
+	auto currentFrame = GetFrame().value();
 	auto zoomX = rect.width / currentFrame.width;
 	auto zoomY = rect.height / currentFrame.height;
 

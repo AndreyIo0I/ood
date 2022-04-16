@@ -5,8 +5,11 @@
 
 using namespace std;
 
-RectD CGroupShape::GetFrame()
+optional<RectD> CGroupShape::GetFrame()
 {
+	if (GetShapesCount() == 0)
+		return nullopt;
+
 	double minX = numeric_limits<double>::max();
 	double maxX = numeric_limits<double>::min();
 	double minY = numeric_limits<double>::max();
@@ -14,13 +17,16 @@ RectD CGroupShape::GetFrame()
 
 	for (auto& shape: m_shapes)
 	{
-		minX = min(minX, shape->GetFrame().left);
-		minY = min(minY, shape->GetFrame().top);
-		maxX = max(maxX, shape->GetFrame().left + shape->GetFrame().width);
-		maxY = max(maxY, shape->GetFrame().top + shape->GetFrame().height);
+		if (!shape->GetFrame().has_value())
+			continue;
+		auto shapeFrame = shape->GetFrame().value();
+		minX = min(minX, shapeFrame.left);
+		minY = min(minY, shapeFrame.top);
+		maxX = max(maxX, shapeFrame.left + shapeFrame.width);
+		maxY = max(maxY, shapeFrame.top + shapeFrame.height);
 	}
 
-	return {
+	return RectD {
 		minX,
 		minY,
 		maxX - minX,
@@ -30,13 +36,18 @@ RectD CGroupShape::GetFrame()
 
 void CGroupShape::SetFrame(const RectD& newFrame)
 {
-	auto currentFrame = GetFrame();
+	if (GetShapesCount() == 0)
+		throw logic_error("resize of empty group of shapes");
+
+	auto currentFrame = GetFrame().value();
 	auto zoomX = newFrame.width / currentFrame.width;
 	auto zoomY = newFrame.height / currentFrame.height;
 
 	for (auto& shape: m_shapes)
 	{
-		auto shapeFrame = shape->GetFrame();
+		if (!shape->GetFrame().has_value())
+			continue;
+		auto shapeFrame = shape->GetFrame().value();
 		shape->SetFrame({
 			newFrame.left + (shapeFrame.left - currentFrame.left) * zoomX,
 			newFrame.top + (shapeFrame.top - currentFrame.top) * zoomY,

@@ -11,5 +11,6 @@ public:
 
 	virtual void EnumerateAll(const Callback& callback) const = 0;
 
-	virtual ~IStyleEnumerator() = default;
+protected:
+	~IStyleEnumerator() = default;
 };

@@ -1,15 +1,17 @@
 #include "CRectangle.h"
 #include "CommonTypes.h"
 
+using namespace std;
+
 CRectangle::CRectangle(double x1, double y1, double x2, double y2)
 	: m_leftTop({x1, y1})
 	, m_rightBottom({x2, y2})
 {
 }
 
-RectD CRectangle::GetFrame()
+optional<RectD> CRectangle::GetFrame()
 {
-	return {
+	return RectD {
 		m_leftTop.x,
 		m_leftTop.y,
 		m_rightBottom.x - m_leftTop.x,

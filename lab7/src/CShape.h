@@ -1,4 +1,6 @@
 #pragma once
+
+#include <optional>
 #include "IShape.h"
 #include "IFillStyle.h"
 #include "ILineStyle.h"
@@ -10,7 +12,7 @@ class IGroupShape;
 class CShape : public IShape
 {
 public:
-	RectD GetFrame() override = 0;
+	std::optional<RectD> GetFrame() override = 0;
 	void SetFrame(const RectD& rect) override = 0;
 
 	ILineStyle& GetOutlineStyle() override;

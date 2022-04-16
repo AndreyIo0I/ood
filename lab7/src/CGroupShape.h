@@ -9,10 +9,10 @@
 #include "CCompositeLineStyle.h"
 #include "CCompositeFillStyle.h"
 
-class CGroupShape : public IGroupShape, public IStyleEnumerator<IFillStyle>, public IStyleEnumerator<ILineStyle>
+class CGroupShape : public IGroupShape, public IStyleEnumerator<IFillStyle>, public IStyleEnumerator<ILineStyle>, public std::enable_shared_from_this<IGroupShape>
 {
 public:
-	RectD GetFrame() override;
+	std::optional<RectD> GetFrame() override;
 	void SetFrame(const RectD& newFrame) override;
 
 	ILineStyle& GetOutlineStyle() override;

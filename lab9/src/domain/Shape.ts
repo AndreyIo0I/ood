@@ -5,6 +5,7 @@ import {generateUUID} from '../common/generateUUID'
 import {Position} from '../common/Position'
 
 class Shape {
+	private static readonly minSize: number = 20
 	private frame: Frame
 	private readonly id: string
 	private readonly type: ShapeType
@@ -21,14 +22,19 @@ class Shape {
 	}
 
 	setFrame(frame: Frame): void {
-		this.frame = frame
-		this.onFrameChangedSignal.dispatch(this.frame)
+		if (frame.height >= Shape.minSize && frame.width >= Shape.minSize) {
+			this.frame = frame
+			this.onFrameChangedSignal.dispatch(this.frame)
+		}
 	}
 
 	setPosition({left, top}: Position): void {
-		this.frame.left = left
-		this.frame.top = top
-		this.onFrameChangedSignal.dispatch(this.frame)
+		this.setFrame({
+			left,
+			top,
+			width: this.frame.width,
+			height: this.frame.height,
+		})
 	}
 
 	getOnFrameChangedSignal(): Signal<Frame> {

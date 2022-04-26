@@ -23,7 +23,7 @@ class CanvasVM {
 			this.shapesVM.push(shapeVM)
 			canvasView.addShape(shapeView)
 
-			shapeView.getOnClickSignal().add(() => {
+			shapeView.getOnMouseDownSignal().add(() => {
 				this.removeSelection()
 				this.selectedShape = shapeModel
 				const selectionView = new SelectionView(shapeModel.getFrame())

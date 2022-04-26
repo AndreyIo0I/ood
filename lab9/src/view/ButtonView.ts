@@ -2,10 +2,13 @@
 class ButtonView {
 	private readonly element: HTMLElement
 
-	constructor(onClick: () => void, className: string) {
+	constructor(onClick: () => void, className: string = '', text: string = '') {
 		this.element = document.createElement('div')
-		this.element.classList.add('button', className)
 		this.element.addEventListener('click', () => onClick())
+		this.element.classList.add('button')
+		if (className)
+			this.element.classList.add(className)
+		this.element.textContent = text
 	}
 
 	getElement(): HTMLElement {

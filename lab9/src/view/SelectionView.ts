@@ -27,10 +27,6 @@ class SelectionView {
 
 	setFrame(frame: Frame): void {
 		this.frame = frame
-		this.element.setAttribute('x', frame.left.toString())
-		this.element.setAttribute('y', frame.top.toString())
-		this.element.setAttribute('width', frame.width.toString())
-		this.element.setAttribute('height', frame.height.toString())
 
 		this.point1.setPosition(frame.left - SelectionView.halfPointSize, frame.top - SelectionView.halfPointSize)
 		this.point2.setPosition(frame.left + frame.width - SelectionView.halfPointSize, frame.top - SelectionView.halfPointSize)

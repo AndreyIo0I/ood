@@ -22,8 +22,8 @@ class SelectionVM {
 			const onMouseMove = (moveEvent: MouseEvent) => {
 				const currentFrame = selectedShapeVM.getModel().getFrame()
 				selectedShapeVM.getModel().setFrame({
-					left: moveEvent.offsetX,
-					top: moveEvent.offsetY,
+					left: currentFrame.left + moveEvent.movementX,
+					top: currentFrame.top + moveEvent.movementY,
 					width: currentFrame.width - moveEvent.movementX,
 					height: currentFrame.height - moveEvent.movementY,
 				})
@@ -48,7 +48,7 @@ class SelectionVM {
 			const onMouseMove = (moveEvent: MouseEvent) => {
 				const currentFrame = selectedShapeVM.getModel().getFrame()
 				selectedShapeVM.getModel().setFrame({
-					left: moveEvent.offsetX,
+					left: currentFrame.left + moveEvent.movementX,
 					top: currentFrame.top,
 					width: currentFrame.width - moveEvent.movementX,
 					height: currentFrame.height + moveEvent.movementY,

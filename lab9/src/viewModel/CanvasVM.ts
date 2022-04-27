@@ -6,6 +6,7 @@ import {SelectionVM} from './SelectionVM'
 import {Shape} from '../domain/Shape'
 import {SelectionView} from '../view/SelectionView'
 
+//todo не VM
 class CanvasVM {
 	private readonly canvasModel: Canvas
 	private readonly canvasView: CanvasView
@@ -18,11 +19,11 @@ class CanvasVM {
 		this.canvasView = canvasView
 
 		this.canvasModel.getShapes().forEach(shapeModel => {
-			this.addShape(shapeModel, canvasView)
+			this.addShape(shapeModel)
 		})
 
 		this.canvasModel.getOnShapeInsertedSignal().add(shapeModel => {
-			this.addShape(shapeModel, canvasView)
+			this.addShape(shapeModel)
 		})
 
 		this.canvasModel.onShapeDeletedSignal().add(shapeModel => {
@@ -36,11 +37,11 @@ class CanvasVM {
 		})
 	}
 
-	private addShape(shapeModel: Shape, canvasView: CanvasView) {
+	private addShape(shapeModel: Shape) {
 		const shapeView = ShapeViewFactory.createShape(shapeModel.getType(), shapeModel.getFrame())
 		const shapeVM = new ShapeVM(this, shapeModel, shapeView)
 		this.shapesVM.push(shapeVM)
-		canvasView.addShape(shapeView)
+		this.canvasView .addShape(shapeView)
 
 		shapeView.getOnMouseDownSignal().add(() => {
 			this.removeSelection()

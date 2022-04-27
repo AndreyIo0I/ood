@@ -13,6 +13,7 @@ abstract class View<TElement extends Element> {
 		this.initSignals()
 	}
 
+	// todo закрыть, зачем наслседникам этот метод?
 	protected initSignals() {
 		this.addRemovable(() => this.onClickSignal.removeAll())
 		this.addRemovable(() => this.onMouseDownSignal.removeAll())
@@ -59,6 +60,7 @@ abstract class View<TElement extends Element> {
 		this.getElement().remove()
 	}
 
+	//todo что-то не так? переназвать в addTo/appendTo
 	render(parent: Element): void {
 		parent.appendChild(this.getElement())
 	}

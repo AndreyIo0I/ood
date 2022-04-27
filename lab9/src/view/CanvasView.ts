@@ -2,6 +2,7 @@ import {ShapeView} from './ShapeView'
 import {View} from './View'
 
 class CanvasView extends View<SVGSVGElement> {
+	//todo лишние поля
 	private width: number
 	private height: number
 	private shapes: Array<ShapeView> = []

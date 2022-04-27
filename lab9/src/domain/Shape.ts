@@ -19,6 +19,7 @@ class Shape {
 	}
 
 	getFrame(): Frame {
+		//todo сделать неизменяемым или иммутабельным
 		return this.frame
 	}
 
@@ -54,6 +55,7 @@ class Shape {
 		return this.type
 	}
 
+	// todo удалить
 	remove() {
 		this.onFrameChangedSignal.removeAll()
 	}

@@ -1,10 +1,10 @@
 import {Frame} from '../common/Frame'
 import {RectangleView} from './RectangleView'
+import {View} from './View'
 
-class SelectionView {
+class SelectionView extends View<SVGGElement> {
 	private static readonly pointSize = 5
 	private static readonly halfPointSize = SelectionView.pointSize / 2
-	private readonly element: SVGElement
 	private readonly point1: RectangleView
 	private readonly point2: RectangleView
 	private readonly point3: RectangleView
@@ -12,7 +12,7 @@ class SelectionView {
 	private frame: Frame = {left: 0, top: 0, width: 0, height: 0}
 
 	constructor(frame: Frame) {
-		this.element = document.createElementNS('http://www.w3.org/2000/svg', 'g')
+		super(document.createElementNS('http://www.w3.org/2000/svg', 'g'))
 		this.element.setAttribute('stroke', 'black')
 		this.element.setAttribute('fill', 'transparent')
 
@@ -34,21 +34,14 @@ class SelectionView {
 		this.point4.setPosition(frame.left + frame.width - SelectionView.halfPointSize, frame.top  + frame.height - SelectionView.halfPointSize)
 	}
 
-	getElement(): Element {
-		return this.element
-	}
-
 	getPoints(): [RectangleView, RectangleView, RectangleView, RectangleView] {
 		return [this.point1, this.point2, this.point3, this.point4]
 	}
 
 	render(parent: Element): void {
+		super.render(parent)
 		parent.appendChild(this.getElement())
 		this.getPoints().forEach(point => point.render(this.getElement()))
-	}
-
-	remove() {
-		this.element.remove()
 	}
 }
 

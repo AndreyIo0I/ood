@@ -17,21 +17,12 @@ class CanvasVM {
 		this.canvasModel = canvasModel
 		this.canvasView = canvasView
 
+		this.canvasModel.getShapes().forEach(shapeModel => {
+			this.addShape(shapeModel, canvasView)
+		})
+
 		this.canvasModel.getOnShapeInsertedSignal().add(shapeModel => {
-			const shapeView = ShapeViewFactory.createShape(shapeModel.getType(), shapeModel.getFrame())
-			const shapeVM = new ShapeVM(this, shapeModel, shapeView)
-			this.shapesVM.push(shapeVM)
-			canvasView.addShape(shapeView)
-
-			shapeView.getOnMouseDownSignal().add(() => {
-				this.removeSelection()
-				this.selectedShape = shapeModel
-				const selectionView = new SelectionView(shapeModel.getFrame())
-				this.selectionVM = new SelectionVM(this, shapeVM, selectionView)
-				selectionView.render(this.canvasView.getElement())
-			})
-
-			shapeModel.getOnFrameChangedSignal().add(frame => shapeView.setFrame(frame))
+			this.addShape(shapeModel, canvasView)
 		})
 
 		this.canvasModel.onShapeDeletedSignal().add(shapeModel => {
@@ -43,6 +34,23 @@ class CanvasVM {
 		this.canvasView.getOnClickSignal().add(() => {
 			this.removeSelection()
 		})
+	}
+
+	private addShape(shapeModel: Shape, canvasView: CanvasView) {
+		const shapeView = ShapeViewFactory.createShape(shapeModel.getType(), shapeModel.getFrame())
+		const shapeVM = new ShapeVM(this, shapeModel, shapeView)
+		this.shapesVM.push(shapeVM)
+		canvasView.addShape(shapeView)
+
+		shapeView.getOnMouseDownSignal().add(() => {
+			this.removeSelection()
+			this.selectedShape = shapeModel
+			const selectionView = new SelectionView(shapeModel.getFrame())
+			this.selectionVM = new SelectionVM(this, shapeVM, selectionView)
+			selectionView.render(this.canvasView.getElement())
+		})
+
+		shapeModel.getOnFrameChangedSignal().add(frame => shapeView.setFrame(frame))
 	}
 
 	getView() {

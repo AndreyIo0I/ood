@@ -25,9 +25,10 @@
 }
 
 .button {
+    cursor: pointer;
     width: 50px;
     height: 50px;
-    background: burlywood;
+    background-color: burlywood;
     transition: all .12s;
     display: flex;
     align-items: center;
@@ -53,5 +54,5 @@
 }
 
 .button:hover {
-    transform: scale(1.05, 1.05);
+    background-color: #aa8c65;
 }

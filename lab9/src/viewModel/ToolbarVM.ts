@@ -11,9 +11,23 @@ class ToolbarVM {
 		this.view = view
 
 		this.view.getAddShapeSignal().add(type => {
-			const newShapeFrame = {left: this.model.getWidth() / 2 - 50, top: this.model.getHeight() / 2  - 50, width: 100, height: 100}
-			this.model.insertShape(new Shape(type, newShapeFrame))
+			const shapeSize = 100
+			const newShapeFrame = {
+				left: (this.model.getWidth() - shapeSize) / 2,
+				top: (this.model.getHeight() - shapeSize) / 2  - 50,
+				width: shapeSize,
+				height: shapeSize,
+			}
+			this.model.insertShape(new Shape(type, newShapeFrame, model.getWidth(), model.getHeight()))
 		})
+	}
+
+	getOnSaveSignal() {
+		return this.view.getOnSaveSignal()
+	}
+
+	getOnUploadSignal() {
+		return this.view.getOnUploadSignal()
 	}
 }
 

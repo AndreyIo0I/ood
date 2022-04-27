@@ -2,6 +2,7 @@ import {EditorView} from '../view/EditorView'
 import {Canvas} from '../domain/Canvas'
 import {CanvasVM} from './CanvasVM'
 import {ToolbarVM} from './ToolbarVM'
+import {CanvasSaver} from '../domain/CanvasSaver'
 
 class EditorVM {
 	private model: Canvas
@@ -9,12 +10,27 @@ class EditorVM {
 	private canvasVM: CanvasVM
 	private toolbarVM: ToolbarVM
 
-	constructor(canvasModel: Canvas, view: EditorView) {
-		this.model = canvasModel
-		this.view = view
+	constructor() {
+		this.setModel(new Canvas())
+	}
 
-		this.canvasVM = new CanvasVM(canvasModel, this.view.getCanvas())
-		this.toolbarVM = new ToolbarVM(canvasModel, this.view.getToolbar())
+	setModel(canvas: Canvas) {
+		this.model = canvas
+		this.view = new EditorView()
+
+		this.canvasVM = new CanvasVM(this.model, this.view.getCanvas())
+		this.toolbarVM = new ToolbarVM(this.model, this.view.getToolbar())
+
+		this.toolbarVM.getOnSaveSignal().add(() => {
+			CanvasSaver.save(this.model)
+		})
+
+		this.toolbarVM.getOnUploadSignal().add(file => {
+			this.view.remove()
+			this.setModel(CanvasSaver.upload(file))
+		})
+
+		this.view.render(document.body)
 	}
 }
 

@@ -3,8 +3,8 @@ import {ToolbarView} from './ToolbarView'
 
 class EditorView {
 	private readonly element: HTMLElement
-	private canvas: CanvasView
-	private toolbar: ToolbarView
+	private readonly canvas: CanvasView
+	private readonly toolbar: ToolbarView
 
 	constructor() {
 		this.element = document.createElement('div')
@@ -32,6 +32,10 @@ class EditorView {
 
 		this.toolbar.render(this.getElement())
 		this.canvas.render(this.getElement())
+	}
+
+	remove() {
+		this.getElement().remove()
 	}
 }
 

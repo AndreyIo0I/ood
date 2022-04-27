@@ -3,10 +3,8 @@ import {ShapeView} from './ShapeView'
 
 class TriangleView extends ShapeView {
 	constructor(frame: Frame) {
-		super()
-		this.element = document.createElementNS('http://www.w3.org/2000/svg', 'polygon')
+		super(document.createElementNS('http://www.w3.org/2000/svg', 'polygon'))
 		this.element.setAttribute('fill', 'blue')
-		this.initSignals()
 		this.setFrame(frame)
 	}
 

@@ -3,10 +3,8 @@ import {ShapeView} from './ShapeView'
 
 class RectangleView extends ShapeView {
 	constructor(frame: Frame) {
-		super()
-		this.element = document.createElementNS('http://www.w3.org/2000/svg', 'rect')
+		super(document.createElementNS('http://www.w3.org/2000/svg', 'rect'))
 		this.element.setAttribute('fill', 'green')
-		this.initSignals()
 		this.setFrame(frame)
 	}
 

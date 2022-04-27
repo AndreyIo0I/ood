@@ -3,10 +3,8 @@ import {ShapeView} from './ShapeView'
 
 class EllipseView extends ShapeView {
 	constructor(frame: Frame) {
-		super()
-		this.element = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse')
+		super(document.createElementNS('http://www.w3.org/2000/svg', 'ellipse'))
 		this.element.setAttribute('fill', 'red')
-		this.initSignals()
 		this.setFrame(frame)
 	}
 

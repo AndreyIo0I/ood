@@ -54,7 +54,7 @@ abstract class View<TElement extends Element> {
 		return this.element
 	}
 
-	remove() {
+	remove(): void {
 		this.removables.forEach(remove => remove())
 		this.getElement().remove()
 	}

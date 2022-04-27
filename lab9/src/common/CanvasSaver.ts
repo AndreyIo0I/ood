@@ -1,8 +1,8 @@
-import {Canvas} from './Canvas'
-import {save} from '../common/save'
-import {Shape} from './Shape'
-import {ShapeType} from '../common/ShapeType'
-import {Frame} from '../common/Frame'
+import {Canvas} from '../domain/Canvas'
+import {save} from './save'
+import {Shape} from '../domain/Shape'
+import {ShapeType} from './ShapeType'
+import {Frame} from './Frame'
 
 type CanvasData = {
 	shapes: Array<ShapeData>,

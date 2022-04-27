@@ -76,7 +76,7 @@ class SelectionVM {
 		return this.view
 	}
 
-	onKeyDown(event: KeyboardEvent) {
+	private onKeyDown(event: KeyboardEvent): void {
 		if (event.code === 'Delete')
 			this.canvasVM.getModel().deleteShape(this.selectedShapeVM.getModel())
 	}

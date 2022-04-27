@@ -23,15 +23,15 @@ class ToolbarView {
 		this.addButton(() => this.addShapeSignal.dispatch('ellipse'), 'ellipse-button')
 	}
 
-	getAddShapeSignal() {
+	getAddShapeSignal(): Signal<ShapeType> {
 		return this.addShapeSignal
 	}
 
-	getOnSaveSignal() {
+	getOnSaveSignal(): Signal<void> {
 		return this.onSaveSignal
 	}
 
-	getOnUploadSignal() {
+	getOnUploadSignal(): Signal<string> {
 		return this.onUploadSignal
 	}
 

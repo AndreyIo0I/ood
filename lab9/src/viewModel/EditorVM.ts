@@ -2,7 +2,7 @@ import {EditorView} from '../view/EditorView'
 import {Canvas} from '../domain/Canvas'
 import {CanvasVM} from './CanvasVM'
 import {ToolbarVM} from './ToolbarVM'
-import {CanvasSaver} from '../domain/CanvasSaver'
+import {CanvasSaver} from '../common/CanvasSaver'
 
 class EditorVM {
 	private model: Canvas
@@ -14,7 +14,7 @@ class EditorVM {
 		this.setModel(new Canvas())
 	}
 
-	setModel(canvas: Canvas) {
+	private setModel(canvas: Canvas) {
 		this.model = canvas
 		this.view = new EditorView()
 

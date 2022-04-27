@@ -10,6 +10,16 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/common/CanvasSaver.ts":
+/*!***********************************!*\
+  !*** ./src/common/CanvasSaver.ts ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"CanvasSaver\": () => (/* binding */ CanvasSaver)\n/* harmony export */ });\n/* harmony import */ var _domain_Canvas__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../domain/Canvas */ \"./src/domain/Canvas.ts\");\n/* harmony import */ var _save__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./save */ \"./src/common/save.ts\");\n/* harmony import */ var _domain_Shape__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../domain/Shape */ \"./src/domain/Shape.ts\");\n\r\n\r\n\r\nclass CanvasSaver {\r\n    static save(canvas) {\r\n        (0,_save__WEBPACK_IMPORTED_MODULE_1__.save)(CanvasSaver.serializeCanvas(canvas), 'doc');\r\n    }\r\n    static serializeCanvas(canvas) {\r\n        return JSON.stringify({\r\n            shapes: canvas.getShapes().map(shape => ({\r\n                type: shape.getType(),\r\n                frame: shape.getFrame(),\r\n            })),\r\n            width: canvas.getWidth(),\r\n            height: canvas.getHeight(),\r\n        });\r\n    }\r\n    static upload(file) {\r\n        const data = JSON.parse(file);\r\n        const canvas = new _domain_Canvas__WEBPACK_IMPORTED_MODULE_0__.Canvas(data.width, data.height);\r\n        data.shapes.forEach(shapeData => {\r\n            const shape = new _domain_Shape__WEBPACK_IMPORTED_MODULE_2__.Shape(shapeData.type, shapeData.frame, canvas.getWidth(), canvas.getHeight());\r\n            canvas.insertShape(shape);\r\n        });\r\n        return canvas;\r\n    }\r\n}\r\n\r\n\n\n//# sourceURL=webpack:///./src/common/CanvasSaver.ts?");
+
+/***/ }),
+
 /***/ "./src/common/Signal.ts":
 /*!******************************!*\
   !*** ./src/common/Signal.ts ***!
@@ -50,16 +60,6 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
-/***/ "./src/domain/CanvasSaver.ts":
-/*!***********************************!*\
-  !*** ./src/domain/CanvasSaver.ts ***!
-  \***********************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"CanvasSaver\": () => (/* binding */ CanvasSaver)\n/* harmony export */ });\n/* harmony import */ var _Canvas__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Canvas */ \"./src/domain/Canvas.ts\");\n/* harmony import */ var _common_save__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../common/save */ \"./src/common/save.ts\");\n/* harmony import */ var _Shape__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Shape */ \"./src/domain/Shape.ts\");\n\r\n\r\n\r\nclass CanvasSaver {\r\n    static save(canvas) {\r\n        (0,_common_save__WEBPACK_IMPORTED_MODULE_1__.save)(CanvasSaver.serializeCanvas(canvas), 'doc');\r\n    }\r\n    static serializeCanvas(canvas) {\r\n        return JSON.stringify({\r\n            shapes: canvas.getShapes().map(shape => ({\r\n                type: shape.getType(),\r\n                frame: shape.getFrame(),\r\n            })),\r\n            width: canvas.getWidth(),\r\n            height: canvas.getHeight(),\r\n        });\r\n    }\r\n    static upload(file) {\r\n        const data = JSON.parse(file);\r\n        const canvas = new _Canvas__WEBPACK_IMPORTED_MODULE_0__.Canvas(data.width, data.height);\r\n        data.shapes.forEach(shapeData => {\r\n            const shape = new _Shape__WEBPACK_IMPORTED_MODULE_2__.Shape(shapeData.type, shapeData.frame, canvas.getWidth(), canvas.getHeight());\r\n            canvas.insertShape(shape);\r\n        });\r\n        return canvas;\r\n    }\r\n}\r\n\r\n\n\n//# sourceURL=webpack:///./src/domain/CanvasSaver.ts?");
-
-/***/ }),
-
 /***/ "./src/domain/Shape.ts":
 /*!*****************************!*\
   !*** ./src/domain/Shape.ts ***!
@@ -96,7 +96,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \***********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"EditorVM\": () => (/* binding */ EditorVM)\n/* harmony export */ });\n/* harmony import */ var _view_EditorView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../view/EditorView */ \"./src/view/EditorView.ts\");\n/* harmony import */ var _domain_Canvas__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../domain/Canvas */ \"./src/domain/Canvas.ts\");\n/* harmony import */ var _CanvasVM__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CanvasVM */ \"./src/viewModel/CanvasVM.ts\");\n/* harmony import */ var _ToolbarVM__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ToolbarVM */ \"./src/viewModel/ToolbarVM.ts\");\n/* harmony import */ var _domain_CanvasSaver__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../domain/CanvasSaver */ \"./src/domain/CanvasSaver.ts\");\n\r\n\r\n\r\n\r\n\r\nclass EditorVM {\r\n    constructor() {\r\n        this.setModel(new _domain_Canvas__WEBPACK_IMPORTED_MODULE_1__.Canvas());\r\n    }\r\n    setModel(canvas) {\r\n        this.model = canvas;\r\n        this.view = new _view_EditorView__WEBPACK_IMPORTED_MODULE_0__.EditorView();\r\n        this.canvasVM = new _CanvasVM__WEBPACK_IMPORTED_MODULE_2__.CanvasVM(this.model, this.view.getCanvas());\r\n        this.toolbarVM = new _ToolbarVM__WEBPACK_IMPORTED_MODULE_3__.ToolbarVM(this.model, this.view.getToolbar());\r\n        this.toolbarVM.getOnSaveSignal().add(() => {\r\n            _domain_CanvasSaver__WEBPACK_IMPORTED_MODULE_4__.CanvasSaver.save(this.model);\r\n        });\r\n        this.toolbarVM.getOnUploadSignal().add(file => {\r\n            this.view.remove();\r\n            this.setModel(_domain_CanvasSaver__WEBPACK_IMPORTED_MODULE_4__.CanvasSaver.upload(file));\r\n        });\r\n        this.view.render(document.body);\r\n    }\r\n}\r\n\r\n\n\n//# sourceURL=webpack:///./src/viewModel/EditorVM.ts?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"EditorVM\": () => (/* binding */ EditorVM)\n/* harmony export */ });\n/* harmony import */ var _view_EditorView__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../view/EditorView */ \"./src/view/EditorView.ts\");\n/* harmony import */ var _domain_Canvas__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../domain/Canvas */ \"./src/domain/Canvas.ts\");\n/* harmony import */ var _CanvasVM__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CanvasVM */ \"./src/viewModel/CanvasVM.ts\");\n/* harmony import */ var _ToolbarVM__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./ToolbarVM */ \"./src/viewModel/ToolbarVM.ts\");\n/* harmony import */ var _common_CanvasSaver__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../common/CanvasSaver */ \"./src/common/CanvasSaver.ts\");\n\r\n\r\n\r\n\r\n\r\nclass EditorVM {\r\n    constructor() {\r\n        this.setModel(new _domain_Canvas__WEBPACK_IMPORTED_MODULE_1__.Canvas());\r\n    }\r\n    setModel(canvas) {\r\n        this.model = canvas;\r\n        this.view = new _view_EditorView__WEBPACK_IMPORTED_MODULE_0__.EditorView();\r\n        this.canvasVM = new _CanvasVM__WEBPACK_IMPORTED_MODULE_2__.CanvasVM(this.model, this.view.getCanvas());\r\n        this.toolbarVM = new _ToolbarVM__WEBPACK_IMPORTED_MODULE_3__.ToolbarVM(this.model, this.view.getToolbar());\r\n        this.toolbarVM.getOnSaveSignal().add(() => {\r\n            _common_CanvasSaver__WEBPACK_IMPORTED_MODULE_4__.CanvasSaver.save(this.model);\r\n        });\r\n        this.toolbarVM.getOnUploadSignal().add(file => {\r\n            this.view.remove();\r\n            this.setModel(_common_CanvasSaver__WEBPACK_IMPORTED_MODULE_4__.CanvasSaver.upload(file));\r\n        });\r\n        this.view.render(document.body);\r\n    }\r\n}\r\n\r\n\n\n//# sourceURL=webpack:///./src/viewModel/EditorVM.ts?");
 
 /***/ }),
 

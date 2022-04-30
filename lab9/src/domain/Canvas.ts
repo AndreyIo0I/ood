@@ -6,7 +6,7 @@ class Canvas {
 	private readonly height
 	private shapes: Array<Shape> = []
 	private onShapeInsertedSignal: Signal<Shape> = new Signal<Shape>()
-	private shapeDeletedSignal: Signal<Shape> = new Signal<Shape>()
+	private onShapeDeletedSignal: Signal<Shape> = new Signal<Shape>()
 
 	constructor(width: number = 800, height: number = 600) {
 		this.width = width
@@ -38,11 +38,11 @@ class Canvas {
 
 	deleteShape(shape: Shape): void {
 		this.shapes = this.shapes.filter(v => v !== shape)
-		this.shapeDeletedSignal.dispatch(shape)
+		this.onShapeDeletedSignal.dispatch(shape)
 	}
-// todo привести к одному стилю название
-	onShapeDeletedSignal(): Signal<Shape> {
-		return this.shapeDeletedSignal
+
+	getOnShapeDeletedSignal(): Signal<Shape> {
+		return this.onShapeDeletedSignal
 	}
 }
 

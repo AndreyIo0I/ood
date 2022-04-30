@@ -25,7 +25,7 @@ class CanvasPresenter {
 			this.addShape(shapeModel)
 		})
 
-		this.canvasModel.onShapeDeletedSignal().add(shapeModel => {
+		this.canvasModel.getOnShapeDeletedSignal().add(shapeModel => {
 			const shapeVM = this.shapesVM.find(vm => vm.getModel() === shapeModel)
 			shapeVM.remove()
 			this.removeSelection()

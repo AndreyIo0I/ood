@@ -3,9 +3,9 @@ import {createFnRemovableSubscribe} from './createFnRemovableSubscribe'
 
 abstract class View<TElement extends Element> {
 	protected readonly element: TElement
-	protected removables: Array<() => void> = []
-	protected onClickSignal: Signal<MouseEvent> = new Signal<MouseEvent>()
-	protected onMouseDownSignal: Signal<MouseEvent> = new Signal<MouseEvent>()
+	private removables: Array<() => void> = []
+	private onClickSignal: Signal<MouseEvent> = new Signal<MouseEvent>()
+	private onMouseDownSignal: Signal<MouseEvent> = new Signal<MouseEvent>()
 	private onMouseMoveSignal: Signal<MouseEvent> = new Signal<MouseEvent>()
 
 	protected constructor(element: TElement) {
@@ -13,8 +13,7 @@ abstract class View<TElement extends Element> {
 		this.initSignals()
 	}
 
-	// todo закрыть, зачем наслседникам этот метод?
-	protected initSignals() {
+	private initSignals() {
 		this.addRemovable(() => this.onClickSignal.removeAll())
 		this.addRemovable(() => this.onMouseDownSignal.removeAll())
 		this.addRemovable(() => this.onMouseMoveSignal.removeAll())
@@ -31,11 +30,11 @@ abstract class View<TElement extends Element> {
 		})
 	}
 
-	addRemovable(removable: () => void) {
+	protected addRemovable(removable: () => void) {
 		this.removables.push(removable)
 	}
 
-	addRemovableListener<T extends Event>(element: TElement, type: string, fn: (event: T) => void): void {
+	protected addRemovableListener<T extends Event>(element: TElement, type: string, fn: (event: T) => void): void {
 		this.addRemovable(createFnRemovableSubscribe(element, type, fn))
 	}
 
@@ -60,8 +59,7 @@ abstract class View<TElement extends Element> {
 		this.getElement().remove()
 	}
 
-	//todo что-то не так? переназвать в addTo/appendTo
-	render(parent: Element): void {
+	appendTo(parent: Element): void {
 		parent.appendChild(this.getElement())
 	}
 }

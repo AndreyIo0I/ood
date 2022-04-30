@@ -30,7 +30,7 @@ class EditorPresenter {
 			this.setModel(CanvasSaver.upload(file))
 		})
 
-		this.view.render(document.body)
+		this.view.appendTo(document.body)
 	}
 }
 

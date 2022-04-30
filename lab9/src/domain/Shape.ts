@@ -53,11 +53,6 @@ class Shape {
 	getType(): ShapeType {
 		return this.type
 	}
-
-	// todo удалить
-	remove() {
-		this.onFrameChangedSignal.removeAll()
-	}
 }
 
 export {

@@ -25,10 +25,11 @@ class Canvas {
 		return this.shapes
 	}
 
-	//todo убарть возможность добавить две одинакове фигуры
 	insertShape(shape: Shape, index: number = this.shapes.length): void {
-		this.shapes.splice(index, 0, shape)
-		this.onShapeInsertedSignal.dispatch(shape)
+		if (!this.shapes.includes(shape)) {
+			this.shapes.splice(index, 0, shape)
+			this.onShapeInsertedSignal.dispatch(shape)
+		}
 	}
 
 	getOnShapeInsertedSignal(): Signal<Shape> {
@@ -38,7 +39,6 @@ class Canvas {
 	deleteShape(shape: Shape): void {
 		this.shapes = this.shapes.filter(v => v !== shape)
 		this.shapeDeletedSignal.dispatch(shape)
-		shape.remove()
 	}
 // todo привести к одному стилю название
 	onShapeDeletedSignal(): Signal<Shape> {

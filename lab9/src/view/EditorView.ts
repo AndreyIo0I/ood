@@ -22,11 +22,11 @@ class EditorView extends View<HTMLElement> {
 		return this.canvas
 	}
 
-	render(parent: HTMLElement) {
-		super.render(parent)
+	appendTo(parent: HTMLElement) {
+		super.appendTo(parent)
 
-		this.toolbar.render(this.getElement())
-		this.canvas.render(this.getElement())
+		this.toolbar.appendTo(this.getElement())
+		this.canvas.appendTo(this.getElement())
 	}
 }
 

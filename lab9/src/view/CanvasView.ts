@@ -10,7 +10,7 @@ class CanvasView extends View<SVGSVGElement> {
 	}
 
 	addShape(shape: ShapeView): void {
-		shape.render(this.getElement())
+		shape.appendTo(this.getElement())
 	}
 
 	setWidth(width: number): void {

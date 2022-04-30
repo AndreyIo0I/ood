@@ -47,7 +47,7 @@ class CanvasPresenter {
 			this.selectedShape = shapeModel
 			const selectionView = new SelectionView(shapeModel.getFrame())
 			this.selectionVM = new SelectionPresenter(this, shapeVM, selectionView)
-			selectionView.render(this.canvasView.getElement())
+			selectionView.appendTo(this.canvasView.getElement())
 		})
 
 		shapeModel.getOnFrameChangedSignal().add(frame => shapeView.setFrame(frame))

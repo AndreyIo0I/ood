@@ -38,10 +38,10 @@ class SelectionView extends View<SVGGElement> {
 		return [this.point1, this.point2, this.point3, this.point4]
 	}
 
-	render(parent: Element): void {
-		super.render(parent)
+	appendTo(parent: Element): void {
+		super.appendTo(parent)
 		parent.appendChild(this.getElement())
-		this.getPoints().forEach(point => point.render(this.getElement()))
+		this.getPoints().forEach(point => point.appendTo(this.getElement()))
 	}
 }
 

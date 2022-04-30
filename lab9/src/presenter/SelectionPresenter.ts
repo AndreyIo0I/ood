@@ -1,15 +1,15 @@
 import {SelectionView} from '../view/SelectionView'
 import {WindowSignals} from '../view/WindowSignals'
-import {ShapeVM} from './ShapeVM'
-import {CanvasVM} from './CanvasVM'
+import {ShapePresenter} from './ShapePresenter'
+import {CanvasPresenter} from './CanvasPresenter'
 
-class SelectionVM {
+class SelectionPresenter {
 	private readonly windowView: WindowSignals = new WindowSignals()
-	private readonly canvasVM: CanvasVM
-	private readonly selectedShapeVM: ShapeVM
+	private readonly canvasVM: CanvasPresenter
+	private readonly selectedShapeVM: ShapePresenter
 	private readonly view: SelectionView
 
-	constructor(canvasModel: CanvasVM, selectedShapeVM: ShapeVM, view: SelectionView) {
+	constructor(canvasModel: CanvasPresenter, selectedShapeVM: ShapePresenter, view: SelectionView) {
 		this.canvasVM = canvasModel
 		this.selectedShapeVM = selectedShapeVM
 		this.view = view
@@ -89,5 +89,5 @@ class SelectionVM {
 }
 
 export {
-	SelectionVM,
+	SelectionPresenter,
 }

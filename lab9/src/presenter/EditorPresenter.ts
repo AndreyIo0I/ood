@@ -1,14 +1,14 @@
 import {EditorView} from '../view/EditorView'
 import {Canvas} from '../domain/Canvas'
-import {CanvasVM} from './CanvasVM'
-import {ToolbarVM} from './ToolbarVM'
+import {CanvasPresenter} from './CanvasPresenter'
+import {ToolbarPresenter} from './ToolbarPresenter'
 import {CanvasSaver} from '../common/CanvasSaver'
 
-class EditorVM {
+class EditorPresenter {
 	private model: Canvas
 	private view: EditorView
-	private canvasVM: CanvasVM
-	private toolbarVM: ToolbarVM
+	private canvasVM: CanvasPresenter
+	private toolbarVM: ToolbarPresenter
 
 	constructor() {
 		this.setModel(new Canvas())
@@ -18,8 +18,8 @@ class EditorVM {
 		this.model = canvas
 		this.view = new EditorView()
 
-		this.canvasVM = new CanvasVM(this.model, this.view.getCanvas())
-		this.toolbarVM = new ToolbarVM(this.model, this.view.getToolbar())
+		this.canvasVM = new CanvasPresenter(this.model, this.view.getCanvas())
+		this.toolbarVM = new ToolbarPresenter(this.model, this.view.getToolbar())
 
 		this.toolbarVM.getOnSaveSignal().add(() => {
 			CanvasSaver.save(this.model)
@@ -35,5 +35,5 @@ class EditorVM {
 }
 
 export {
-	EditorVM,
+	EditorPresenter,
 }

@@ -2,7 +2,7 @@ import {Canvas} from '../domain/Canvas'
 import {ToolbarView} from '../view/ToolbarView'
 import {Shape} from '../domain/Shape'
 
-class ToolbarVM {
+class ToolbarPresenter {
 	private model: Canvas
 	private view: ToolbarView
 
@@ -32,5 +32,5 @@ class ToolbarVM {
 }
 
 export {
-	ToolbarVM,
+	ToolbarPresenter,
 }

@@ -1,10 +1,8 @@
-import {EditorVM} from './viewModel/EditorVM'
-
+import {EditorPresenter} from './presenter/EditorPresenter'
 
 //todo синхронизировать курсор с точкой
-//todo viewModel -> presenter
 window.addEventListener('DOMContentLoaded', initEditor)
 
 function initEditor() {
-	new EditorVM()
+	new EditorPresenter()
 }

@@ -1,16 +1,16 @@
 import {Shape} from '../domain/Shape'
 import {ShapeView} from '../view/ShapeView'
 import {WindowSignals} from '../view/WindowSignals'
-import {CanvasVM} from './CanvasVM'
+import {CanvasPresenter} from './CanvasPresenter'
 
-class ShapeVM {
+class ShapePresenter {
 	private readonly windowView = new WindowSignals()
 	private readonly model: Shape
 	private readonly view: ShapeView
-	private readonly canvasVM: CanvasVM
+	private readonly canvasPresenter: CanvasPresenter
 
-	constructor(canvasModel: CanvasVM, model: Shape, view: ShapeView) {
-		this.canvasVM = canvasModel
+	constructor(canvasPresenter: CanvasPresenter, model: Shape, view: ShapeView) {
+		this.canvasPresenter = canvasPresenter
 		this.model = model
 		this.view = view
 
@@ -25,8 +25,8 @@ class ShapeVM {
 		const onMouseMove = (moveEvent: MouseEvent) => {
 			this.model.setPosition({left: moveEvent.offsetX - x, top: moveEvent.offsetY - y})
 		}
-		this.canvasVM.getView().getOnMouseMoveSignal().add(onMouseMove)
-		this.windowView.onMouseUpSignal.addCallOnce(() => this.canvasVM.getView().getOnMouseMoveSignal().remove(onMouseMove))
+		this.canvasPresenter.getView().getOnMouseMoveSignal().add(onMouseMove)
+		this.windowView.onMouseUpSignal.addCallOnce(() => this.canvasPresenter.getView().getOnMouseMoveSignal().remove(onMouseMove))
 	}
 
 	getView(): ShapeView {
@@ -43,5 +43,5 @@ class ShapeVM {
 }
 
 export {
-	ShapeVM,
+	ShapePresenter,
 }

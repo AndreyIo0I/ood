@@ -1,18 +1,17 @@
 import {Canvas} from '../domain/Canvas'
 import {CanvasView} from '../view/CanvasView'
 import {ShapeViewFactory} from '../view/ShapeViewFactory'
-import {ShapeVM} from './ShapeVM'
-import {SelectionVM} from './SelectionVM'
+import {ShapePresenter} from './ShapePresenter'
+import {SelectionPresenter} from './SelectionPresenter'
 import {Shape} from '../domain/Shape'
 import {SelectionView} from '../view/SelectionView'
 
-//todo не VM
-class CanvasVM {
+class CanvasPresenter {
 	private readonly canvasModel: Canvas
 	private readonly canvasView: CanvasView
-	private shapesVM: Array<ShapeVM> = []
+	private shapesVM: Array<ShapePresenter> = []
 	private selectedShape?: Shape = null
-	private selectionVM: SelectionVM
+	private selectionVM: SelectionPresenter
 
 	constructor(canvasModel: Canvas, canvasView: CanvasView) {
 		this.canvasModel = canvasModel
@@ -39,7 +38,7 @@ class CanvasVM {
 
 	private addShape(shapeModel: Shape) {
 		const shapeView = ShapeViewFactory.createShape(shapeModel.getType(), shapeModel.getFrame())
-		const shapeVM = new ShapeVM(this, shapeModel, shapeView)
+		const shapeVM = new ShapePresenter(this, shapeModel, shapeView)
 		this.shapesVM.push(shapeVM)
 		this.canvasView .addShape(shapeView)
 
@@ -47,7 +46,7 @@ class CanvasVM {
 			this.removeSelection()
 			this.selectedShape = shapeModel
 			const selectionView = new SelectionView(shapeModel.getFrame())
-			this.selectionVM = new SelectionVM(this, shapeVM, selectionView)
+			this.selectionVM = new SelectionPresenter(this, shapeVM, selectionView)
 			selectionView.render(this.canvasView.getElement())
 		})
 
@@ -71,5 +70,5 @@ class CanvasVM {
 }
 
 export {
-	CanvasVM,
+	CanvasPresenter,
 }

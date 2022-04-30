@@ -18,8 +18,7 @@ class Shape {
 		this.canvasHeight = canvasHeight
 	}
 
-	getFrame(): Frame {
-		//todo сделать неизменяемым или иммутабельным
+	getFrame(): Readonly<Frame> {
 		return this.frame
 	}
 

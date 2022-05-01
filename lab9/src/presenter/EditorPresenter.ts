@@ -7,8 +7,8 @@ import {CanvasSaver} from '../common/CanvasSaver'
 class EditorPresenter {
 	private model: Canvas
 	private view: EditorView
-	private canvasVM: CanvasPresenter
-	private toolbarVM: ToolbarPresenter
+	private canvasPresenter: CanvasPresenter
+	private toolbarPresenter: ToolbarPresenter
 
 	constructor() {
 		this.setModel(new Canvas())
@@ -18,14 +18,14 @@ class EditorPresenter {
 		this.model = canvas
 		this.view = new EditorView()
 
-		this.canvasVM = new CanvasPresenter(this.model, this.view.getCanvas())
-		this.toolbarVM = new ToolbarPresenter(this.model, this.view.getToolbar())
+		this.canvasPresenter = new CanvasPresenter(this.model, this.view.getCanvas())
+		this.toolbarPresenter = new ToolbarPresenter(this.model, this.view.getToolbar())
 
-		this.toolbarVM.getOnSaveSignal().add(() => {
+		this.toolbarPresenter.getOnSaveSignal().add(() => {
 			CanvasSaver.save(this.model)
 		})
 
-		this.toolbarVM.getOnUploadSignal().add(file => {
+		this.toolbarPresenter.getOnUploadSignal().add(file => {
 			this.view.remove()
 			this.setModel(CanvasSaver.upload(file))
 		})

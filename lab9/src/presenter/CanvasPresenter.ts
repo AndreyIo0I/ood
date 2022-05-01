@@ -9,9 +9,9 @@ import {SelectionView} from '../view/SelectionView'
 class CanvasPresenter {
 	private readonly canvasModel: Canvas
 	private readonly canvasView: CanvasView
-	private shapesVM: Array<ShapePresenter> = []
+	private shapesPresenter: Array<ShapePresenter> = []
 	private selectedShape?: Shape = null
-	private selectionVM: SelectionPresenter
+	private selectionPresenter: SelectionPresenter
 
 	constructor(canvasModel: Canvas, canvasView: CanvasView) {
 		this.canvasModel = canvasModel
@@ -26,8 +26,8 @@ class CanvasPresenter {
 		})
 
 		this.canvasModel.getOnShapeDeletedSignal().add(shapeModel => {
-			const shapeVM = this.shapesVM.find(vm => vm.getModel() === shapeModel)
-			shapeVM.remove()
+			const shapePresenter = this.shapesPresenter.find(presenter => presenter.getModel() === shapeModel)
+			shapePresenter.remove()
 			this.removeSelection()
 		})
 
@@ -38,15 +38,15 @@ class CanvasPresenter {
 
 	private addShape(shapeModel: Shape) {
 		const shapeView = ShapeViewFactory.createShape(shapeModel.getType(), shapeModel.getFrame())
-		const shapeVM = new ShapePresenter(this, shapeModel, shapeView)
-		this.shapesVM.push(shapeVM)
+		const shapePresenter = new ShapePresenter(this, shapeModel, shapeView)
+		this.shapesPresenter.push(shapePresenter)
 		this.canvasView .addShape(shapeView)
 
 		shapeView.getOnMouseDownSignal().add(() => {
 			this.removeSelection()
 			this.selectedShape = shapeModel
 			const selectionView = new SelectionView(shapeModel.getFrame())
-			this.selectionVM = new SelectionPresenter(this, shapeVM, selectionView)
+			this.selectionPresenter = new SelectionPresenter(this, shapePresenter, selectionView)
 			selectionView.appendTo(this.canvasView.getElement())
 		})
 
@@ -62,9 +62,9 @@ class CanvasPresenter {
 	}
 
 	removeSelection() {
-		if (this.selectionVM) {
-			this.selectionVM.remove()
-			this.selectionVM = null
+		if (this.selectionPresenter) {
+			this.selectionPresenter.remove()
+			this.selectionPresenter = null
 		}
 	}
 }

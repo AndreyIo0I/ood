@@ -11,14 +11,14 @@ class SelectionPresenter {
 	private readonly selectedShapePresenter: ShapePresenter
 	private readonly view: SelectionView
 
-	constructor(canvasPresenter: CanvasPresenter, selectedShapeVM: ShapePresenter, view: SelectionView) {
+	constructor(canvasPresenter: CanvasPresenter, selectedShapePresenter: ShapePresenter, view: SelectionView) {
 		this.canvasPresenter = canvasPresenter
-		this.selectedShapePresenter = selectedShapeVM
+		this.selectedShapePresenter = selectedShapePresenter
 		this.view = view
 
 		this.windowView.onKeyDownSignal.add(event => this.onKeyDown(event))
 
-		selectedShapeVM.getModel().getOnFrameChangedSignal().add(frame => view.setFrame(frame))
+		selectedShapePresenter.getModel().getOnFrameChangedSignal().add(frame => view.setFrame(frame))
 
 		this.movePoint(this.view.getPoints()[0], (initialFrame, moveEvent) => ({
 			left: moveEvent.offsetX,

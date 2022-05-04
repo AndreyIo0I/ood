@@ -19,7 +19,7 @@ class ShapePresenter {
 		this.view.getOnMouseDownSignal().add(event => this.moveShape(event))
 	}
 
-	moveShape(event: MouseEvent) {
+	private moveShape(event: MouseEvent) {
 		const x = event.offsetX - this.model.getFrame().left
 		const y = event.offsetY - this.model.getFrame().top
 		const onMouseMove = (moveEvent: MouseEvent) => {

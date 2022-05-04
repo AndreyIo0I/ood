@@ -11,19 +11,14 @@ class CanvasPresenter {
 	private readonly canvasView: CanvasView
 	private shapesPresenter: Array<ShapePresenter> = []
 	private selectedShape?: Shape = null
-	private selectionPresenter: SelectionPresenter
+	private selectionPresenter?: SelectionPresenter
 
 	constructor(canvasModel: Canvas, canvasView: CanvasView) {
 		this.canvasModel = canvasModel
 		this.canvasView = canvasView
 
-		this.canvasModel.getShapes().forEach(shapeModel => {
-			this.addShape(shapeModel)
-		})
-
-		this.canvasModel.getOnShapeInsertedSignal().add(shapeModel => {
-			this.addShape(shapeModel)
-		})
+		this.canvasModel.getShapes().forEach(shapeModel => this.addShape(shapeModel))
+		this.canvasModel.getOnShapeInsertedSignal().add(shapeModel => this.addShape(shapeModel))
 
 		this.canvasModel.getOnShapeDeletedSignal().add(shapeModel => {
 			const shapePresenter = this.shapesPresenter.find(presenter => presenter.getModel() === shapeModel)
@@ -31,16 +26,14 @@ class CanvasPresenter {
 			this.removeSelection()
 		})
 
-		this.canvasView.getOnClickSignal().add(() => {
-			this.removeSelection()
-		})
+		this.canvasView.getOnClickSignal().add(() => this.removeSelection())
 	}
 
 	private addShape(shapeModel: Shape) {
 		const shapeView = ShapeViewFactory.createShape(shapeModel.getType(), shapeModel.getFrame())
 		const shapePresenter = new ShapePresenter(this, shapeModel, shapeView)
 		this.shapesPresenter.push(shapePresenter)
-		this.canvasView .addShape(shapeView)
+		this.canvasView.addShape(shapeView)
 
 		shapeView.getOnMouseDownSignal().add(() => {
 			this.removeSelection()
@@ -61,7 +54,7 @@ class CanvasPresenter {
 		return this.canvasModel
 	}
 
-	removeSelection() {
+	private removeSelection() {
 		if (this.selectionPresenter) {
 			this.selectionPresenter.remove()
 			this.selectionPresenter = null

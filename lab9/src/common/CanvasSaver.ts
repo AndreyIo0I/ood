@@ -20,17 +20,6 @@ class CanvasSaver {
 		save(CanvasSaver.serializeCanvas(canvas), 'doc')
 	}
 
-	static serializeCanvas(canvas: Canvas): string {
-		return JSON.stringify({
-			shapes: canvas.getShapes().map(shape => ({
-				type: shape.getType(),
-				frame: shape.getFrame(),
-			})),
-			width: canvas.getWidth(),
-			height: canvas.getHeight(),
-		})
-	}
-
 	static upload(file: string): Canvas {
 		const data: CanvasData = JSON.parse(file)
 		const canvas = new Canvas(data.width, data.height)
@@ -41,6 +30,17 @@ class CanvasSaver {
 		})
 
 		return canvas
+	}
+
+	private static serializeCanvas(canvas: Canvas): string {
+		return JSON.stringify({
+			shapes: canvas.getShapes().map(shape => ({
+				type: shape.getType(),
+				frame: shape.getFrame(),
+			})),
+			width: canvas.getWidth(),
+			height: canvas.getHeight(),
+		})
 	}
 }
 
